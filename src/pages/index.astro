@@ -1,5 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import headshot from '@/assets/headshot/pavlo-radiuk-square.jpg';
 import Base from '@/layouts/Base.astro';
 import EmailLink from '@/components/EmailLink.astro';
 import PubRow from '@/components/PubRow.astro';
@@ -51,7 +53,15 @@ const articles = selected.map((p) => ({
   jsonLd={articles}
 >
   <section class="container intro">
-    <div class="portrait" aria-hidden="true"><span>PR</span></div>
+    <Image
+      class="portrait"
+      src={headshot}
+      alt="Pavlo Radiuk"
+      widths={[112, 224, 336]}
+      sizes="7rem"
+      loading="eager"
+      fetchpriority="high"
+    />
     <div class="intro-text">
       <h1>Pavlo Radiuk</h1>
       <p class="role sans">
@@ -145,19 +155,11 @@ const articles = selected.map((p) => ({
   }
 
   .portrait {
-    display: grid;
-    place-items: center;
     inline-size: 7rem;
     aspect-ratio: 1;
-    background: var(--text-light);
+    object-fit: cover;
     border-radius: var(--radius-lg);
-  }
-
-  .portrait span {
-    font-family: var(--font-serif);
-    font-size: 2.25rem;
-    font-weight: 600;
-    color: var(--bg-light);
+    background: var(--color-surface-2);
   }
 
   .intro-text {
