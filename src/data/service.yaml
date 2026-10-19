@@ -1,0 +1,147 @@
+# Programme committees
+- id: pc-dexa
+  kind: programme-committee
+  venue: International Conference on Database and Expert Systems Applications (DEXA)
+  role: Programme Committee member
+  years: [2024, 2025, 2026]
+
+- id: pc-wise
+  kind: programme-committee
+  venue: International Conference on Web Information Systems Engineering (WISE)
+  role: Programme Committee member
+  years: [2024, 2026]
+
+- id: pc-mobiwis
+  kind: programme-committee
+  venue: MobiWis
+  role: Programme Committee member
+  years: [2026]
+
+# Conference reviewing
+- id: reviewer-intelitsis
+  kind: conference-reviewer
+  venue: >-
+    International Workshop on Intelligent Information Technologies & Systems of Information
+    Security (IntelITSIS)
+  role: Reviewer
+  years: [2022, 2023, 2024, 2025, 2026]
+
+- id: reviewer-iddm
+  kind: conference-reviewer
+  venue: International Conference on Informatics & Data-Driven Medicine (IDDM)
+  role: Reviewer
+  years: [2022, 2023, 2024]
+
+- id: reviewer-icyberphys
+  kind: conference-reviewer
+  venue: International Workshop on Intelligent & CyberPhysical Systems (ICyberPhyS)
+  role: Reviewer
+  years: [2024, 2025]
+
+- id: reviewer-yaisd
+  kind: conference-reviewer
+  venue: YAISD
+  role: Reviewer
+  years: [2025, 2026]
+
+- id: reviewer-wise
+  kind: conference-reviewer
+  venue: International Conference on Web Information Systems Engineering (WISE)
+  role: Reviewer
+  years: [2025]
+
+- id: reviewer-idaacs
+  kind: conference-reviewer
+  venue: >-
+    IEEE International Conference on Intelligent Data Acquisition and Advanced Computing Systems:
+    Technology and Applications (IDAACS)
+  role: Reviewer
+  years: [2025]
+
+- id: reviewer-intsol
+  kind: conference-reviewer
+  venue: International Scientific Symposium "Intelligent Solutions" (IntSol)
+  role: Reviewer
+  years: [2025]
+
+- id: reviewer-advait
+  kind: conference-reviewer
+  venue: International Workshop on Advanced Applied Information Technologies (AdvAIT)
+  role: Reviewer
+  years: [2024]
+
+- id: reviewer-icst
+  kind: conference-reviewer
+  venue: ICST
+  role: Reviewer
+  years: [2024]
+
+- id: reviewer-acit
+  kind: conference-reviewer
+  venue: IEEE International Conference on Advanced Computer Information Technologies (ACIT)
+  role: Reviewer
+  years: [2026]
+
+- id: reviewer-apweb-waim
+  kind: conference-reviewer
+  venue: APWeb-WAIM
+  role: Reviewer
+  years: [2026]
+
+# Editorial roles
+- id: editorial-jifs
+  kind: editorial
+  venue: Journal of Intelligent & Fuzzy Systems
+  role: Editorial Board Member and Handling Editor
+  years: [2023, 2024]
+
+- id: editorial-sustainability
+  kind: editorial
+  venue: Sustainability (MDPI)
+  role: Guest Editor
+  years: [2024, 2025, 2026]
+  url: https://www.mdpi.com/journal/sustainability/special_issues/KQVEZ3O6NC
+  note: >-
+    Special issue "Empowering Artificial Intelligence to Achieve Sustainable Development Goals",
+    closed August 2026.
+
+- id: editorial-ceur-4141
+  kind: editorial
+  venue: CEUR Workshop Proceedings, Vol. 4141 (ExplAI-2025)
+  role: Volume Editor
+  years: [2025]
+  url: https://ceur-ws.org/Vol-4141/
+
+# Organising
+- id: organising-explai
+  kind: organizing
+  venue: >-
+    Workshop on Advanced AI in Explainability and Ethics for the Sustainable Development Goals
+    (ExplAI)
+  role: Organising Committee member
+  years: [2025, 2026]
+  url: https://kn.khmnu.edu.ua/ExplAI/
+
+# Dissertation councils
+- id: dissertation-tntu-opponent
+  kind: dissertation
+  venue: Ternopil Ivan Puluj National Technical University
+  role: Official Opponent, Ph.D. defence
+  years: [2026]
+  note: Specialty 122 Computer Science.
+
+- id: dissertation-khnu-reviewer
+  kind: dissertation
+  venue: Khmelnytskyi National University
+  role: Reviewer, two one-off specialised academic councils for Ph.D. defences
+  years: [2026]
+  note: Specialties 122 Computer Science and 123 Computer Engineering.
+
+# Event organisation within U_CAN
+- id: organising-ucan-conference-2026
+  kind: organizing
+  venue: >-
+    International conference "Reducing CO₂ Emissions in Ukrainian Cities: Pathways to Climate
+    Neutrality" (Horizon Europe U_CAN), Khmelnytskyi National University
+  role: Lead organiser
+  years: [2026]

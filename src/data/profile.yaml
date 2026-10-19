@@ -1,0 +1,80 @@
+main:
+  name: Pavlo Radiuk
+  honorific: Dr.
+  position: Associate Professor
+  department: Department of Computer Science
+  faculty: Faculty of Information Technologies
+  university: Khmelnytskyi National University
+  universityUrl: https://khmnu.edu.ua/
+  city: Khmelnytskyi
+  country: Ukraine
+  tagline: Explainable AI that experts can audit
+  emails:
+    - address: radiukp@khmnu.edu.ua
+      label: University
+    - address: radiukpavlo@gmail.com
+      label: Personal
+  ids:
+    orcid: 0000-0003-3609-112X
+    scopus: '57216894492'
+    wos: AAA-9727-2021
+    scholar: qmxDbPoAAAAJ
+    researchgate: Pavlo-Radiuk
+    linkedin: pavlo-radiuk-487029123
+    github: radiukpavlo
+  bios:
+    short: >-
+      Pavlo Radiuk is Associate Professor of Computer Science at Khmelnytskyi National University,
+      Ukraine. His research makes deep-learning decisions legible to the experts who act on them,
+      through transition matrices between model and human feature spaces. He has authored more than
+      70 scientific works and is technical lead of the Khmelnytskyi traffic pilot in the Horizon
+      Europe project U_CAN.
+    medium: >-
+      Pavlo Radiuk is Associate Professor in the Department of Computer Science, Faculty of
+      Information Technologies, Khmelnytskyi National University, Ukraine, where he is also a
+      full-time doctoral candidate for the Doctor of Science degree. He received his Ph.D. in
+      Computer Science in 2022 for work on information technology for the early diagnosis of
+      pneumonia from individual radiographs.
+
+      His research concerns explainable and trustworthy artificial intelligence. He formalises the
+      mapping between a deep model's learned feature space and the feature space a domain expert
+      reasons with as a transition matrix, extends it with Lie-group equivariance and rough-set
+      production rules, and validates it against expert judgement in cardiac MRI, ECG, thoracic
+      imaging, UAV-based infrastructure inspection and urban traffic control.
+
+      He has authored more than 70 scientific works, served on the editorial board of the Journal
+      of Intelligent & Fuzzy Systems (2023–2024), and is a Researcher in the Horizon Europe project
+      U_CAN at Khmelnytskyi National University, within the EU Cities Mission.
+    long: >-
+      Pavlo Radiuk is Associate Professor in the Department of Computer Science, Faculty of
+      Information Technologies, Khmelnytskyi National University, Ukraine. He graduated with
+      distinction in Mathematical and Computer Modelling in 2017, defended his Ph.D. in Computer
+      Science in December 2021 (awarded 2022), and since September 2025 has been a full-time
+      doctoral candidate for the Doctor of Science degree, with Professor Oleksander Barmak as
+      scientific consultant.
+
+      His research addresses a single question across several domains: how to make the decisions
+      of deep-learning systems legible to the people who must act on them. The central construct
+      is the transition matrix, an explicit linear mapping between a model's learned feature space
+      and the feature space a domain expert already reasons with, so that an explanation becomes a
+      change of basis rather than a heatmap. He has extended this with Lie-group equivariance,
+      rough-set production rules and conflict-aware auditing, and validated it against clinical
+      expert judgement, with Cohen's kappa of 0.89 for ECG and 0.80 for cardiac MRI. The same
+      framework carries into UAV-based inspection of wind turbines and photovoltaic plants,
+      precision agriculture and reinforcement-learning traffic control.
+
+      He has authored more than 70 scientific works, including articles in Machine Learning and
+      Knowledge Extraction, Sensors, Energies, Drones and Technologies. He holds nine registered
+      Ukrainian copyright certificates and has co-authored two university textbooks.
+
+      He is a Researcher in the Horizon Europe project Ukraine towards Carbon Neutrality (U_CAN,
+      grant agreement 101148374) at Khmelnytskyi National University, under the EU Mission for
+      Climate-Neutral and Smart Cities, and technical lead of the Khmelnytskyi traffic pilot. He
+      served on the editorial board of the Journal of Intelligent & Fuzzy Systems in 2023–2024,
+      has completed more than 450 peer-review rounds for journals and conferences, and serves on
+      the organising committee of the ExplAI workshop series. He held the Scholarship of the
+      Cabinet of Ministers of Ukraine for Young Scientists (2022–2024).
+  currently: >-
+    Working on his Doctor of Science research on interpreting the decisions of AI systems, serving
+    as technical lead of the U_CAN Khmelnytskyi traffic pilot, and co-organising the ExplAI-2026
+    workshop on 13 November 2026.

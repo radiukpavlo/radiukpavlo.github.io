@@ -1,0 +1,51 @@
+- id: intelligent-data-analysis
+  title: Intelligent Data Analysis
+  level: bachelor
+  language: uk
+  current: true
+  url: https://github.com/radiukpavlo/intelligent-data-analysis
+  note: Lectures, laboratory classes and course projects; open Jupyter curriculum on GitHub.
+
+- id: conducting-experiments
+  title: Conducting Experiments and Processing the Results of Scientific Research
+  level: master
+  language: en
+  current: true
+
+- id: research-methodologies-cs
+  title: >-
+    Modern Methodologies, Methods and Tools of Experimental and Theoretical Research in Computer
+    Science
+  level: phd
+  language: uk
+  current: true
+
+- id: project-management-rnd
+  title: Project Management in Research and Development
+  level: phd
+  language: uk
+  current: true
+
+- id: statistical-data-processing
+  title: Statistical Data Processing
+  level: bachelor
+  language: uk
+  current: true
+
+- id: decision-theory-operations-research
+  title: Decision Theory and Operations Research
+  level: bachelor
+  language: uk
+  current: true
+
+- id: operations-research-decision-theory
+  title: Operations Research and Fundamentals of Decision Theory
+  level: bachelor
+  language: uk
+  current: true
+
+- id: probability-statistics
+  title: Probability Theory and Statistical Data Processing
+  level: bachelor
+  language: uk
+  current: true

@@ -21,7 +21,6 @@ function inject(): void {
   const script = document.createElement('script');
   script.src = SRC;
   script.async = true;
-  script.charset = 'utf-8';
   document.head.append(script);
 }
 

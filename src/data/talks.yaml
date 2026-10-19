@@ -1,0 +1,501 @@
+# Conference contributions and project presentations.
+# Locations are the events' published venues; they do not state the mode of attendance.
+
+- id: icst-odesa-2026-radiuk
+  event: Information Control Systems and Technologies
+  short: ICST-ODESA 2026
+  city: Odesa
+  country: Ukraine
+  lat: 46.48
+  lon: 30.72
+  date: '2026-09'
+  kind: paper
+  title: >-
+    Auditing deep learning for cardiac MRI through semantic transitions and conflict-aware
+    production rules
+
+- id: advait-2025-chaban
+  event: '2nd International Workshop on Advanced Applied Information Technologies: AI & DSS'
+  short: AdvAIT 2025
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2025-12'
+  kind: paper
+  title: Intelligent information system for knowledge integration into artificial intelligence models
+  publications: [chaban2026intelligent]
+
+- id: explai-2025-shupta
+  event: 1st Workshop on Advanced AI in Explainability and Ethics for the Sustainable Development Goals
+  short: ExplAI-2025
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2025-11'
+  kind: paper
+  title: 'Verifiable by construction: Evidence-anchored LLMs for explainable fake news detection'
+  publications: [shupta2025verifiable]
+
+- id: idaacs-2025-svystun
+  event: >-
+    13th IEEE International Conference on Intelligent Data Acquisition and Advanced Computing
+    Systems: Technology and Applications
+  short: IDAACS 2025
+  city: Gliwice
+  country: Poland
+  lat: 50.29
+  lon: 18.67
+  date: '2025-09'
+  kind: paper
+  title: YOLO ensemble for UAV-based multispectral defect detection in wind turbine components
+  publications: [svystun2025yolo]
+
+- id: yaisd-ws-2025-pavlyshyn
+  event: >-
+    Joint workshops AI for Environmental and Social Sustainability and AI and Interdisciplinary
+    Innovations for Sustainable Development
+  short: YAISD-WS 2025
+  city: Ternopil
+  country: Ukraine
+  lat: 49.55
+  lon: 25.59
+  date: '2025-05'
+  kind: paper
+  title: Establishing patterns of the urban transport flows on clustering analysis
+  publications: [pavlyshyn2025establishing]
+
+- id: yaisd-ws-2025-ryzhanskyi
+  event: >-
+    Joint workshops AI for Environmental and Social Sustainability and AI and Interdisciplinary
+    Innovations for Sustainable Development
+  short: YAISD-WS 2025
+  city: Ternopil
+  country: Ukraine
+  lat: 49.55
+  lon: 25.59
+  date: '2025-05'
+  kind: paper
+  title: AI-driven traffic signal control system to reduce CO₂ emissions
+  publications: [ryzhanskyi2025ai]
+
+- id: doors-2025-chaban
+  event: 5th Edge Computing Workshop
+  short: doors 2025
+  city: Zhytomyr
+  country: Ukraine
+  lat: 50.25
+  lon: 28.66
+  date: '2025-04'
+  kind: paper
+  title: >-
+    EMTKD at the edge: An adaptive multi-teacher knowledge distillation for robust cardiac MRI
+    classification
+  publications: [chaban2025emtkd]
+
+- id: intelitsis-2025-shupta
+  event: >-
+    6th International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2025
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2025-04'
+  kind: paper
+  title: 'Feature computation procedure for fake news detection: An LLM-based extraction approach'
+  publications: [shupta2025feature]
+
+- id: intelitsis-2025-svystun
+  event: >-
+    6th International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2025
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2025-04'
+  kind: paper
+  title: >-
+    Determining the criticality assessment of defects on wind turbine components detected by UAV
+    sensors
+  publications: [svystun2025determining]
+
+- id: advait-2024-svystun
+  event: 1st International Workshop on Advanced Applied Information Technologies
+  short: AdvAIT 2024
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2024-12'
+  kind: paper
+  title: >-
+    Distributed intelligent system architecture for UAV-assisted monitoring of wind energy
+    infrastructure
+  publications: [svystun2025distributed]
+
+- id: it-and-i-2024-slobodzian
+  event: XI International Scientific Conference "Information Technology and Implementation"
+  short: IT&I 2024
+  city: Kyiv
+  country: Ukraine
+  lat: 50.45
+  lon: 30.52
+  date: '2024-11'
+  kind: paper
+  title: Multi-stage segmentation and cascade classification methods for improving cardiac MRI analysis
+  publications: [slobodzian2025multi]
+
+- id: dessert-2024-svystun
+  event: 14th International Conference on Dependable Systems, Services and Technologies
+  short: DESSERT 2024
+  city: Athens
+  country: Greece
+  lat: 37.98
+  lon: 23.73
+  date: '2024-10'
+  kind: paper
+  title: Dynamic trajectory adaptation for efficient UAV inspections of wind energy units
+  publications: [svystun2024dynamic]
+
+- id: dessert-2024-manziuk
+  event: 14th International Conference on Dependable Systems, Services and Technologies
+  short: DESSERT 2024
+  city: Athens
+  country: Greece
+  lat: 37.98
+  lon: 23.73
+  date: '2024-10'
+  kind: paper
+  title: >-
+    Integration of contextual descriptors in ontology alignment for enrichment of semantic
+    correspondence
+  publications: [manziuk2024integration]
+
+- id: profit-ai-2024-radiuk
+  event: 4th International Workshop of IT-professionals on Artificial Intelligence
+  short: ProfIT AI 2024
+  city: Cambridge, MA
+  country: United States
+  lat: 42.37
+  lon: -71.11
+  date: '2024-09'
+  kind: paper
+  title: >-
+    Explainable artificial intelligence: Transitioning DL model decisions to user-understandable
+    features in healthcare
+  publications: [radiuk2024explainableb]
+
+- id: profit-ai-2024-manziuk
+  event: 4th International Workshop of IT-professionals on Artificial Intelligence
+  short: ProfIT AI 2024
+  city: Cambridge, MA
+  country: United States
+  lat: 42.37
+  lon: -71.11
+  date: '2024-09'
+  kind: paper
+  title: >-
+    Representation of trustworthiness components in AI systems: A formalized approach considering
+    interconnections and overlap
+  publications: [manziuk2024representation]
+
+- id: icyberphys-2024-svystun
+  event: 1st International Workshop on Intelligent & CyberPhysical Systems
+  short: ICyberPhyS 2024
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2024-06'
+  kind: paper
+  title: Precision slicing for enhanced defect detection in high-resolution wind turbine blade imagery
+  publications: [svystun2024precision]
+
+- id: icyberphys-2024-kovalchuk
+  event: 1st International Workshop on Intelligent & CyberPhysical Systems
+  short: ICyberPhyS 2024
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2024-06'
+  kind: paper
+  title: >-
+    ECG arrhythmia classification and interpretation using convolutional networks for intelligent
+    IoT healthcare system
+  publications: [kovalchuk2024ecg]
+
+- id: isdmci-2024-manziuk
+  event: >-
+    International Scientific Conference Intellectual Systems of Decision Making and Problems of
+    Computational Intelligence
+  short: ISDMCI 2024
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2024'
+  kind: paper
+  title: Interpretable deep learning method for medical image diagnosis
+  publications: [manziuk2024interpretable]
+
+- id: iddm-2023-kovalchuk
+  event: 6th International Conference on Informatics & Data-Driven Medicine
+  short: IDDM 2023
+  city: Bratislava
+  country: Slovakia
+  lat: 48.15
+  lon: 17.11
+  date: '2023-11'
+  kind: paper
+  title: Robust R-peak detection using deep learning based on integrating domain knowledge
+  publications: [kovalchuk2024robust]
+
+- id: iddm-2023-slobodzian
+  event: 6th International Conference on Informatics & Data-Driven Medicine
+  short: IDDM 2023
+  city: Bratislava
+  country: Slovakia
+  lat: 48.15
+  lon: 17.11
+  date: '2023-11'
+  kind: paper
+  title: Myocardium segmentation using two-step deep learning with smoothed masks by Gaussian blur
+  publications: [slobodzian2024myocardium]
+
+- id: idaacs-2023-melnychenko
+  event: >-
+    12th IEEE International Conference on Intelligent Data Acquisition and Advanced Computing
+    Systems: Technology and Applications
+  short: IDAACS 2023
+  city: Dortmund
+  country: Germany
+  lat: 51.51
+  lon: 7.47
+  date: '2023-09'
+  kind: paper
+  title: Apple detection with occlusions using modified YOLOv5-v1
+  publications: [melnychenko2023apple]
+
+- id: intelitsis-2023-kovalchuk
+  event: >-
+    4th International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2023
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2023-03'
+  kind: paper
+  title: A novel feature vector for ECG classification using deep learning
+  publications: [kovalchuk2023novel]
+
+- id: iddm-2022-radiuk
+  event: 5th International Conference on Informatics & Data-Driven Medicine
+  short: IDDM 2022
+  city: Lyon
+  country: France
+  lat: 45.76
+  lon: 4.84
+  date: '2022-11'
+  kind: paper
+  title: Human-in-the-loop approach based on MRI and ECG for healthcare diagnosis
+  publications: [radiuk2022human]
+
+- id: colins-2022-radiuk
+  event: 6th International Conference on Computational Linguistics and Intelligent Systems
+  short: COLINS 2022
+  city: Gliwice
+  country: Poland
+  lat: 50.29
+  lon: 18.67
+  date: '2022-05'
+  kind: paper
+  title: An ensemble machine learning approach for Twitter sentiment analysis
+  publications: [radiuk2022ensemble]
+
+- id: intelitsis-2022-radiuk
+  event: >-
+    3rd International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2022
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2022-03'
+  kind: paper
+  title: Convolutional neural network for parking slots detection
+  publications: [radiuk2022convolutional]
+
+- id: intelitsis-2022-kalyta
+  event: >-
+    3rd International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2022
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2022-03'
+  kind: paper
+  title: Method of facial geometric feature representation for information security systems
+  publications: [kalyta2022method]
+
+- id: intelitsis-2021-krak
+  event: >-
+    2nd International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2021
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2021-03'
+  kind: paper
+  title: Detection of early pneumonia on individual CT scans with dilated convolutions
+  publications: [krak2021detection]
+
+- id: apkn-2021-radiuk
+  event: XIII All-Ukrainian Scientific and Practical Conference "Actual Problems of Computer Science"
+  short: APKN-2021
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2021'
+  kind: paper
+  title: A mental model approach for making decisions in IT project management
+  publications: [radiuk2021mental]
+
+- id: iddm-2020-krak
+  event: 3rd International Conference on Informatics & Data-Driven Medicine
+  short: IDDM 2020
+  city: Växjö
+  country: Sweden
+  lat: 56.88
+  lon: 14.81
+  date: '2020-11'
+  kind: paper
+  title: Information technology for early diagnosis of pneumonia on individual radiographs
+  publications: [krak2020information]
+
+- id: cmocs-2020-hrypynska
+  event: >-
+    VI International Scientific and Practical Conference "Computer Modeling and Optimization of
+    Complex Systems"
+  short: CMOCS-2020
+  city: Dnipro
+  country: Ukraine
+  lat: 48.46
+  lon: 35.05
+  date: '2020-11'
+  kind: paper
+  title: Convolutional neural network for image-based waste classification
+  publications: [hrypynska2020convolutional]
+
+- id: intelitsis-2020-radiuk
+  event: >-
+    1st International Workshop on Intelligent Information Technologies & Systems of Information
+    Security
+  short: IntelITSIS 2020
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2020-06'
+  kind: paper
+  title: Heuristic architecture search using network morphism for chest X-ray classification
+  publications: [radiuk2020heuristic]
+
+- id: kherson-ix-2020-hrypynska
+  event: IX International Scientific and Practical Conference
+  short: Kherson 2020
+  city: Kherson
+  country: Ukraine
+  lat: 46.64
+  lon: 32.62
+  date: '2020-06'
+  kind: paper
+  title: Search space for the neural network architecture optimization problem
+  publications: [hrypynska2020search]
+
+- id: colins-2020-radiuk
+  event: 4th International Conference on Computational Linguistics and Intelligent Systems
+  short: COLINS 2020
+  city: Lviv
+  country: Ukraine
+  lat: 49.84
+  lon: 24.03
+  date: '2020-04'
+  kind: paper
+  title: A framework for exploring and modelling neural architecture search methods
+  publications: [radiuk2020framework]
+
+- id: automatic-control-2020-radiuk
+  event: VIII All-Ukrainian Scientific and Practical Conference on Automatic Control
+  short: Automatic Control 2020
+  city: Kherson
+  country: Ukraine
+  lat: 46.64
+  lon: 32.62
+  date: '2020-04'
+  kind: paper
+  title: A strategy for searching for the optimal convolutional neural network architecture
+  publications: [radiuk2020strategy]
+
+- id: intelligent-solutions-2019-radiuk
+  event: >-
+    V International Scientific and Practical Conference "Intelligent Solutions: Computational
+    Intelligence"
+  short: Intelligent Solutions 2019
+  city: Uzhhorod
+  country: Ukraine
+  lat: 48.62
+  lon: 22.29
+  date: '2019-04'
+  kind: paper
+  title: Analysis of the application of neural network modelling methods for medical image processing
+  publications: [radiuk2019analysis]
+
+# U_CAN project presentations (speaker record).
+- id: ucan-ms6-conference-2026
+  event: >-
+    International conference "Reducing CO₂ Emissions in Ukrainian Cities: Pathways to Climate
+    Neutrality" (Horizon Europe U_CAN)
+  short: U_CAN conference 2026
+  city: Khmelnytskyi
+  country: Ukraine
+  lat: 49.42
+  lon: 26.99
+  date: '2026-04'
+  kind: presentation
+  title: Lead organiser and speaker
+
+- id: ucan-lquila-wp4-2026
+  event: U_CAN consortium meeting
+  short: U_CAN L'Aquila 2026
+  city: L'Aquila
+  country: Italy
+  lat: 42.35
+  lon: 13.4
+  date: '2026-07'
+  kind: presentation
+  title: Work package 4 status presentation
+
+- id: ucan-dresden-workshop-2026
+  event: U_CAN Scenario Stress-Testing Workshop, TU Dresden
+  short: U_CAN Dresden 2026
+  city: Dresden
+  country: Germany
+  lat: 51.05
+  lon: 13.74
+  date: '2026-09'
+  kind: presentation
+  title: Khmelnytskyi National University input on the Khmelnytskyi adaptive-traffic pilot

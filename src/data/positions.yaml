@@ -1,0 +1,137 @@
+- id: khnu-associate-professor
+  role: Associate Professor
+  org: Khmelnytskyi National University
+  unit: Department of Computer Science, Faculty of Information Technologies
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2025-09'
+  end: null
+  sector: academic
+  summary: >-
+    Teaches eight disciplines at bachelor's, master's and Ph.D. levels, including a master's course
+    taught in English, alongside full-time doctoral research for the Doctor of Science degree.
+
+- id: ucan-researcher
+  role: Researcher, Horizon Europe project U_CAN
+  org: Khmelnytskyi National University
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2024-05'
+  end: null
+  sector: research
+  summary: >-
+    Ukraine towards Carbon Neutrality (grant agreement 101148374), a Coordination and Support
+    Action under the EU Mission for Climate-Neutral and Smart Cities.
+  highlights:
+    - Technical lead of the Khmelnytskyi traffic pilot (simulation-based reinforcement-learning
+      signal control)
+
+- id: khnu-senior-lecturer
+  role: Senior Lecturer
+  org: Khmelnytskyi National University
+  unit: Department of Computer Science
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2022-09'
+  end: '2025-08'
+  sector: academic
+
+- id: ihu-associate-professor
+  role: Associate Professor (part-time)
+  org: International Humanitarian University (now International University)
+  city: Odesa
+  country: Ukraine
+  start: '2022-12'
+  end: '2024'
+  sector: academic
+  summary: >-
+    Taught Machine Learning at master's level and System Analysis at bachelor's level.
+
+- id: nolt-data-scientist
+  role: Data Scientist (advisory)
+  org: Nolt Technologies
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2022-09'
+  end: null
+  sector: industry
+  highlights:
+    - Research and modelling for data-driven client projects
+    - Capability-gap assessment and backlog prioritisation in computer vision
+    - Definition and maintenance of evaluation metrics for ongoing projects
+
+- id: ecommerce-data-scientist
+  role: Data Scientist
+  org: International e-commerce client (via Nolt Technologies)
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2022-09'
+  end: '2023-10'
+  sector: industry
+  summary: Remote engagement delivered through Nolt Technologies.
+  highlights:
+    - NLP recommendation models (sequential transformers) for personalised product recommendations
+    - Text-classification models (LSTM, BERT-family) for client segmentation
+    - Sales-forecasting and cash-flow prediction models on AWS
+
+- id: khnu-assistant
+  role: Assistant
+  org: Khmelnytskyi National University
+  unit: Department of Computer Science
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2021-09'
+  end: '2022-08'
+  sector: academic
+
+- id: khnu-trainee-lecturer
+  role: Trainee Lecturer
+  org: Khmelnytskyi National University
+  unit: Department of Computer Science and Information Technologies
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2021-01'
+  end: '2021-08'
+  sector: academic
+
+- id: medicatec-analyst
+  role: Business & Data Analyst
+  org: MEDICA.TEC
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2019'
+  end: '2020'
+  sector: industry
+  summary: Business and data analysis for a medical-technology company.
+
+- id: astar-analyst
+  role: Data Analyst / Business Analyst
+  org: NGO ASTAR (Sustainable Development Agency ASTAR)
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2018-03'
+  end: '2019-04'
+  sector: industry
+  highlights:
+    - Commissioned market-analysis reports for regional producers
+    - Business audit and translation of business objectives into technical requirements
+    - Recurring statistical reporting
+
+- id: khnu-teaching-assistant
+  role: Teaching Assistant (hourly)
+  org: Khmelnytskyi National University
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2017-09'
+  end: '2018-06'
+  sector: academic
+
+- id: khnu-senior-laboratory-assistant
+  role: Senior Laboratory Assistant
+  org: Khmelnytskyi National University
+  unit: Department of Applied Mathematics and Social Informatics
+  city: Khmelnytskyi
+  country: Ukraine
+  start: '2016-12'
+  end: '2017-08'
+  sector: academic

@@ -1,0 +1,16 @@
+- id: cabinet-scholarship
+  title: Scholarship of the Cabinet of Ministers of Ukraine for Young Scientists
+  issuer: Committee on State Prizes of Ukraine in Science and Technology
+  years: 2022–2024
+  url: https://patonprize.gov.ua/storage/editor/files/spisok-kmu-041122.pdf
+  description: National competitive award; Resolution No. 6 of 4 November 2022.
+
+- id: idaacs-2023-best-paper
+  title: Best Paper Award for Ukrainian authors
+  issuer: >-
+    12th IEEE International Conference on Intelligent Data Acquisition and Advanced Computing
+    Systems (IDAACS-2023)
+  years: '2023'
+  description: >-
+    Awarded in Dortmund, Germany, on 9 September 2023 for the paper "Apple detection with
+    occlusions using modified YOLOv5-v1" (O. Melnychenko, O. Savenko, P. Radiuk).

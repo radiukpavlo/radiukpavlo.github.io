@@ -1,0 +1,20 @@
+# Each database keeps its own scope and date; figures are never summed across databases.
+current:
+  asOf: '2026-10'
+  scholar:
+    citations: 1158
+    h: 17
+    i10: 24
+    asOf: '2026-10-14'
+  scopus:
+    documents: 53
+    citations: 333
+    h: 10
+    asOf: '2026-10-12'
+  # Web of Science Core Collection
+  wos:
+    documents: 25
+    citations: 131
+    h: 7
+    asOf: '2026-10-12'
+  reviews: 450+

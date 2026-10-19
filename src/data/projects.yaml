@@ -1,0 +1,42 @@
+- id: ucan
+  title: Ukraine towards Carbon Neutrality
+  acronym: U_CAN
+  funder: European Union
+  programme: Horizon Europe, EU Mission for Climate-Neutral and Smart Cities
+  grantId: '101148374'
+  role: Researcher; technical lead, Khmelnytskyi traffic pilot
+  start: '2024-05'
+  end: '2028-04'
+  status: ongoing
+  euFunded: true
+  disclaimer: >-
+    Funded by the European Union. Views and opinions expressed are however those of the author(s)
+    only and do not necessarily reflect those of the European Union or the European Climate,
+    Infrastructure and Environment Executive Agency (CINEA). Neither the European Union nor the
+    granting authority can be held responsible for them.
+  url: https://www.ucan-ukraine.eu/
+  summary: >-
+    A Coordination and Support Action coordinated by Technische Universität Dresden that supports
+    Ukrainian cities on their path to climate neutrality. Khmelnytskyi National University leads
+    the Khmelnytskyi pilot on adaptive traffic management, which develops traffic-pattern
+    recognition and reinforcement-learning signal control and tests them in a calibrated
+    simulation of the city's road network.
+  topics:
+    - mobility
+
+- id: uav-green-energy-defects
+  title: Intelligent System for Recognising Defects of Green-Energy Objects Using UAVs
+  funder: Ministry of Education and Science of Ukraine
+  programme: State-funded research and development
+  grantId: 0124U004665
+  role: Researcher (executor)
+  start: '2024-09-01'
+  end: '2026-08-31'
+  status: completed
+  euFunded: false
+  summary: >-
+    A national project led by West Ukrainian National University with the participation of
+    Khmelnytskyi National University. It develops methods for collecting, recognising and
+    processing UAV imagery to detect defects in wind- and solar-energy installations.
+  topics:
+    - uav-energy

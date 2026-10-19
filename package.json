@@ -26,6 +26,7 @@
     "@iconify-json/lucide": "1.2.146",
     "@iconify-json/simple-icons": "1.2.100",
     "@iconify/utils": "3.1.7",
+    "@retorquere/bibtex-parser": "12.1.9",
     "astro": "7.4.0",
     "d3-geo": "3.1.1",
     "topojson-client": "3.1.0",
