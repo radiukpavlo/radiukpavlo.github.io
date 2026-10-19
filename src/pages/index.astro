@@ -2,6 +2,22 @@
 // Toolchain smoke test: fonts, tokens, icons and theme toggle. Replaced in the build phase.
 import Base from '@/layouts/Base.astro';
 import Icon from '@/components/Icon.astro';
+import EuropeMap from '@/components/EuropeMap.astro';
+import DimensionsBadge from '@/components/DimensionsBadge.astro';
+
+// Sample venues from the CV knowledge base; the real list comes from talks data later.
+const venues = [
+  { name: 'Khmelnytskyi (home institution)', lon: 26.99, lat: 49.42, home: true },
+  { name: 'Dortmund', lon: 7.47, lat: 51.51 },
+  { name: 'Gliwice', lon: 18.67, lat: 50.29 },
+  { name: 'Växjö', lon: 14.81, lat: 56.88 },
+  { name: 'Lyon', lon: 4.84, lat: 45.76 },
+  { name: 'Bratislava', lon: 17.11, lat: 48.15 },
+  { name: 'Athens', lon: 23.73, lat: 37.98 },
+  { name: 'Odesa', lon: 30.72, lat: 46.48 },
+  { name: 'Dresden', lon: 13.74, lat: 51.05 },
+  { name: "L'Aquila", lon: 13.4, lat: 42.35 },
+];
 
 const links = [
   { icon: 'academicons:google-scholar', label: 'Google Scholar' },
@@ -24,18 +40,19 @@ const links = [
       <a href="#">accessible copper</a>; labels use the decorative copper.
     </p>
     <ul class="links" aria-label="Profiles">
-      {links.map((l) => (
-        <li>
-          <Icon name={l.icon} label={l.label} size="1.5em" />
-        </li>
-      ))}
+      {links.map((l) => <li>
+        <Icon name={l.icon} label={l.label} size="1.5em" />
+      </li>)}
     </ul>
     <article class="card">
       <span class="label">Journal · 2026</span>
       <h2>Transition matrices for auditable explanations</h2>
       <p class="muted">P. Radiuk, O. Barmak, …</p>
       <pre><code>@article&#123;radiuk2026example, doi = &#123;10.0000/example&#125;&#125;</code></pre>
+      <DimensionsBadge doi="10.3390/drones9110743" />
     </article>
+    <p class="muted">Citation data: <a href="https://www.dimensions.ai">Dimensions</a>.</p>
+    <EuropeMap pins={venues} title="Where my work was presented" />
     <button type="button" id="theme-toggle" aria-label="Toggle dark mode">
       <Icon name="lucide:sun-moon" /> Toggle theme
     </button>

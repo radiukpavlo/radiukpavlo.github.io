@@ -1,0 +1,21 @@
+---
+/** Dimensions citation badge for one DOI; hidden while the work has no citations. */
+interface Props {
+  doi: string;
+}
+
+const { doi } = Astro.props;
+---
+
+<span
+  class="__dimensions_badge_embed__"
+  data-doi={doi}
+  data-style="small_rectangle"
+  data-legend="never"
+  data-hide-zero-citations="true"
+></span>
+
+<script>
+  import { loadDimensionsBadges } from '@/scripts/dimensions';
+  loadDimensionsBadges();
+</script>

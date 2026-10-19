@@ -1,0 +1,18 @@
+---
+/** Cookieless GoatCounter tracker; production builds only, and only when a site code is set. */
+import { site } from '@/config';
+
+const { goatcounter, script, integrity } = site.analytics;
+const enabled = import.meta.env.PROD && Boolean(goatcounter);
+---
+
+{enabled && (
+  <script
+    is:inline
+    data-goatcounter={`https://${goatcounter}.goatcounter.com/count`}
+    async
+    src={script}
+    integrity={integrity}
+    crossorigin="anonymous"
+  />
+)}

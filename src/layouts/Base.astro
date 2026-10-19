@@ -4,6 +4,7 @@ import '@fontsource-variable/inter/opsz.css';
 import '@fontsource-variable/jetbrains-mono';
 import '@/styles/tokens.css';
 import '@/styles/global.css';
+import Analytics from '@/components/Analytics.astro';
 
 interface Props {
   title: string;
@@ -33,6 +34,7 @@ const {
         } catch {}
       })();
     </script>
+    <Analytics />
   </head>
   <body>
     <slot />
