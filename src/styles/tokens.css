@@ -1,0 +1,130 @@
+/*
+ * Design tokens: warm editorial palette, type, space and motion.
+ *
+ * Colour scheme: `color-scheme: light dark` follows the system by default. The theme toggle
+ * overrides it by setting <meta name="color-scheme"> to "light" or "dark", which the :has()
+ * rules below map back onto the property. Colours use light-dark(); browsers without it fall
+ * back to the system preference via a media query (the toggle then has no effect there).
+ *
+ * Contrast on --color-bg (light / dark): text ~13:1 / ~14:1, muted ~5.0:1 / ~8:1,
+ * accent-text ~5.6:1 / ~8:1. --color-accent is for large text, rules and ornament only.
+ */
+
+:root {
+  color-scheme: light dark;
+
+  &:has(> head > meta[name='color-scheme'][content='dark']) {
+    color-scheme: dark;
+  }
+  &:has(> head > meta[name='color-scheme'][content='light']) {
+    color-scheme: light;
+  }
+
+  /* Raw palette */
+  --bg-light: #fcfbf8;
+  --bg-dark: #11151c;
+  --surface-light: #ffffff;
+  --surface-dark: #171c25;
+  --surface-2-light: #f5f3ee;
+  --surface-2-dark: #1e2430;
+  --text-light: #1c2638;
+  --text-dark: #ede6da;
+  --text-muted-light: #575f6b;
+  --text-muted-dark: #a6adba;
+  --accent-light: #b4643c;
+  --accent-dark: #d98a5c;
+  --accent-text-light: #9a4f2a;
+  --accent-text-dark: #e59a6c;
+  --accent-soft-light: #f1e2d7;
+  --accent-soft-dark: #3a2a20;
+  --rule-light: #e5e1da;
+  --rule-dark: #2a3140;
+  --map-land-light: #e9e1d3;
+  --map-land-dark: #222a37;
+  --shadow-light: rgb(27 42 65 / 0.18);
+  --shadow-dark: rgb(0 0 0 / 0.55);
+
+  /* Fallback without light-dark(): follow the system preference */
+  --color-bg: var(--bg-light);
+  --color-surface: var(--surface-light);
+  --color-surface-2: var(--surface-2-light);
+  --color-text: var(--text-light);
+  --color-text-muted: var(--text-muted-light);
+  --color-accent: var(--accent-light);
+  --color-accent-text: var(--accent-text-light);
+  --color-accent-soft: var(--accent-soft-light);
+  --color-rule: var(--rule-light);
+  --color-map-land: var(--map-land-light);
+  --color-shadow: var(--shadow-light);
+
+  @media (prefers-color-scheme: dark) {
+    --color-bg: var(--bg-dark);
+    --color-surface: var(--surface-dark);
+    --color-surface-2: var(--surface-2-dark);
+    --color-text: var(--text-dark);
+    --color-text-muted: var(--text-muted-dark);
+    --color-accent: var(--accent-dark);
+    --color-accent-text: var(--accent-text-dark);
+    --color-accent-soft: var(--accent-soft-dark);
+    --color-rule: var(--rule-dark);
+    --color-map-land: var(--map-land-dark);
+    --color-shadow: var(--shadow-dark);
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --color-bg: light-dark(var(--bg-light), var(--bg-dark));
+    --color-surface: light-dark(var(--surface-light), var(--surface-dark));
+    --color-surface-2: light-dark(var(--surface-2-light), var(--surface-2-dark));
+    --color-text: light-dark(var(--text-light), var(--text-dark));
+    --color-text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+    --color-accent: light-dark(var(--accent-light), var(--accent-dark));
+    --color-accent-text: light-dark(var(--accent-text-light), var(--accent-text-dark));
+    --color-accent-soft: light-dark(var(--accent-soft-light), var(--accent-soft-dark));
+    --color-rule: light-dark(var(--rule-light), var(--rule-dark));
+    --color-map-land: light-dark(var(--map-land-light), var(--map-land-dark));
+    --color-shadow: light-dark(var(--shadow-light), var(--shadow-dark));
+  }
+
+  accent-color: var(--color-accent-text);
+
+  /* Type */
+  --font-serif: 'Radiuk Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans: 'Radiuk Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
+
+  --text-xs: 0.8125rem;
+  --text-sm: 0.9375rem;
+  --text-base: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: clamp(1.5rem, 1.35rem + 0.6vw, 1.875rem);
+  --text-3xl: clamp(1.875rem, 1.6rem + 1.2vw, 2.5rem);
+  --text-display: clamp(2.25rem, 1.85rem + 1.8vw, 3.25rem);
+  --leading-body: 1.6;
+  --leading-tight: 1.2;
+  --tracking-eyebrow: 0.06em;
+
+  /* Space and shape */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  --radius-sm: 3px;
+  --radius-md: 4px;
+  --radius-lg: 6px;
+  --radius-pill: 999px;
+
+  --measure: 70ch;
+  --container: 64rem;
+  --gutter: clamp(1rem, 4vw, 2rem);
+  --header-height: 3.5rem;
+
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
+  --duration: 180ms;
+}

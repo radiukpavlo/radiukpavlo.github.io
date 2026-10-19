@@ -1,0 +1,41 @@
+---
+/**
+ * Author byline: initials + family name, own name in bold, † for mentored junior researchers.
+ * Built as one string so whitespace between names, daggers and commas is exact.
+ */
+import { displayAuthors, type Publication } from '@/lib/format';
+
+interface Props {
+  pub: Publication['data'];
+}
+
+const escape = (s: string) =>
+  s.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] ?? c);
+
+const html = displayAuthors(Astro.props.pub)
+  .map(
+    (a) =>
+      (a.self ? `<strong>${escape(a.name)}</strong>` : escape(a.name)) +
+      (a.mentee
+        ? '<sup class="dagger">†<span class="sr-only"> (mentored researcher)</span></sup>'
+        : ''),
+  )
+  .join(', ');
+---
+
+<p class="authors" set:html={html} />
+
+<style>
+  .authors {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+  .authors :global(strong) {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .authors :global(.dagger) {
+    color: var(--color-accent-text);
+    font-size: 0.75em;
+  }
+</style>

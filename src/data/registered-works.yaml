@@ -1,0 +1,71 @@
+# Ukrainian State Register of Copyright; year = publication of the registration.
+- id: cr-141364
+  certificate: '141364'
+  title: >-
+    Intelligent Information System for Integrating Knowledge into AI Models of Medical Diagnostic
+    Complexes
+  kind: computer program
+  year: 2026
+  coauthors: [O. Chaban, E. Manziuk]
+
+- id: cr-134889
+  certificate: '134889'
+  title: UAV Cyber-Physical System for Wind Turbine Defect Detection
+  kind: computer program
+  year: 2025
+  coauthors: [S. Svystun, O. Savenko, O. Melnychenko]
+
+- id: cr-133517
+  certificate: '133517'
+  title: MRI Pathology Classification with Subsequent Interpretation of Results
+  kind: computer program
+  year: 2025
+  coauthors: [V. Slobodzian, O. Barmak]
+
+- id: cr-132579
+  certificate: '132579'
+  title: ECG Arrhythmia Classification with Subsequent Interpretation of Results
+  kind: computer program
+  year: 2025
+  coauthors: [O. Kovalchuk, O. Barmak]
+
+- id: cr-131692
+  certificate: '131692'
+  title: Data Mining Methods in Information Technologies
+  kind: methodological work
+  year: 2025
+  coauthors: [N. Hrypynska]
+
+- id: cr-131688
+  certificate: '131688'
+  title: Guidelines for Laboratory Work in Numerical Methods
+  kind: methodological work
+  year: 2025
+  coauthors: [N. Hrypynska]
+
+- id: cr-109539
+  certificate: '109539'
+  title: >-
+    Information System for the Visual Presentation and Explanation of Lung Disease Identification
+    Results from Medical Chest Images
+  kind: scientific work
+  year: 2022
+  coauthors: [O. Barmak, O. Mazurets, E. Manziuk, R. Bahrii, M. Molchanova, O. Sobko]
+
+- id: cr-109538
+  certificate: '109538'
+  title: >-
+    Information Technology for the Early Diagnosis of Lung Diseases by a Mental-Formal Neural
+    Network Model
+  kind: scientific work
+  year: 2022
+  coauthors: [O. Barmak, O. Mazurets, E. Manziuk, R. Bahrii, M. Molchanova, O. Sobko]
+
+- id: cr-109262
+  certificate: '109262'
+  title: >-
+    Information System of Alternative Communication for Contactless Text Input Using a Limited
+    Number of Simple Movements
+  kind: scientific work
+  year: 2022
+  coauthors: [R. Bahrii, O. Barmak, O. Mazurets, E. Manziuk, M. Molchanova, O. Sobko]

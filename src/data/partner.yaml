@@ -1,0 +1,30 @@
+main:
+  statement: >-
+    Pavlo Radiuk offers consortia a methods partner for explainable and trustworthy AI, with
+    applied work in medical imaging, UAV-based inspection of energy infrastructure and urban
+    mobility. His transition-matrix approach maps a model's internal features onto the features
+    domain experts already use, so that explanations can be checked and audited. As a Researcher
+    in the Horizon Europe project U_CAN, he brings experience of EU project work, cooperation
+    with municipal stakeholders and a Ukrainian pilot site at Khmelnytskyi National University.
+  roles:
+    - title: XAI methods lead
+      description: >-
+        Task or work-package lead for explainable and trustworthy AI: transition-matrix
+        explanations, rough-set rule extraction and audit protocols that domain experts can check.
+    - title: Medical AI partner
+      description: >-
+        Explainable deep learning for ECG, cardiac MRI and chest radiographs. Explanations for ECG
+        and cardiac MRI have been evaluated against clinical expert judgement, with Cohen’s kappa
+        of 0.89 and 0.80 respectively.
+    - title: Energy & UAV inspection
+      description: >-
+        UAV-based detection and criticality assessment of defects in wind turbines and photovoltaic
+        modules from RGB, thermal and multispectral imagery, developed with Ukrainian and Polish
+        partners.
+    - title: Ukrainian pilot site
+      description: >-
+        Khmelnytskyi National University as a pilot site in Ukraine, drawing on the U_CAN
+        Khmelnytskyi traffic pilot: a calibrated city-scale traffic simulation, joint training
+        with the city council and an international conference organised in 2026.
+  pic: '964860456'
+  picHolder: Khmelnytskyi National University

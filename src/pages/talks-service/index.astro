@@ -1,0 +1,135 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import EuropeMap from '@/components/EuropeMap.astro';
+import { formatYearMonth, formatYears, primaryUrl } from '@/lib/format';
+import { getMetrics } from '@/lib/profile';
+
+const metrics = await getMetrics();
+const talks = (await getCollection('talks')).sort(
+  (a, b) => b.data.date.localeCompare(a.data.date) || a.data.short.localeCompare(b.data.short),
+);
+const pubs = await getCollection('publications');
+const pubById = new Map(pubs.map((p) => [p.id, p]));
+const service = (await getCollection('service')).map((s) => s.data);
+
+// One pin per city inside the map window (Lisbon to eastern Ukraine, Crete to southern Scandinavia).
+const inWindow = (t: { lat: number; lon: number }) =>
+  t.lon >= -11 && t.lon <= 43 && t.lat >= 33 && t.lat <= 66;
+const cities = new Map<string, { lat: number; lon: number; count: number; country: string }>();
+for (const { data: t } of talks) {
+  if (!inWindow(t)) continue;
+  const c = cities.get(t.city) ?? { lat: t.lat, lon: t.lon, count: 0, country: t.country };
+  c.count += 1;
+  cities.set(t.city, c);
+}
+const pins = [...cities].map(([city, c]) => ({
+  name: `${city}, ${c.country}: ${c.count} ${c.count === 1 ? 'contribution' : 'contributions'}`,
+  lat: c.lat,
+  lon: c.lon,
+  home: city === 'Khmelnytskyi',
+}));
+const outside = talks.filter((t) => !inWindow(t.data));
+const outsideCities = [...new Set(outside.map((t) => `${t.data.city}, ${t.data.country}`))];
+
+const years = [...new Set(talks.map((t) => t.data.date.slice(0, 4)))].sort().reverse();
+
+const GROUPS = [
+  { kind: 'programme-committee', title: 'Programme committees' },
+  { kind: 'conference-reviewer', title: 'Conference reviewing' },
+  { kind: 'editorial', title: 'Editorial work' },
+  { kind: 'organizing', title: 'Organising' },
+  { kind: 'dissertation', title: 'Dissertation councils' },
+] as const;
+const lastYear = (ys: number[]) => Math.max(...ys);
+---
+
+<Page
+  title="Talks & service"
+  description="Conference contributions, programme committees, peer review, editorial work and event organisation by Dr. Pavlo Radiuk."
+  lede={`Conference contributions in ${cities.size + outsideCities.length} cities, and service to the research community, including ${metrics.reviews} peer reviews for journals and conferences.`}
+>
+  <section class="section" aria-labelledby="where">
+    <h2 id="where" class="section-title">Where my work was presented</h2>
+    <EuropeMap pins={pins} title="Map of European cities where my work was presented" />
+    <p class="note">
+      One pin per city; the dark pin marks Khmelnytskyi.
+      {outsideCities.length > 0 && <>Also outside the map: {outsideCities.join('; ')}.</>}
+      Locations are the events’ published venues.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="contributions">
+    <h2 id="contributions" class="section-title">Contributions</h2>
+    {years.map((year) => <div
+      class="defer"
+      style={`--defer-size: ${talks.filter((t) => t.data.date.startsWith(year)).length * 90 + 80}px`}
+    >
+      <h3 class="subhead">{year}</h3>
+      <ol class="entries">
+        {talks
+          .filter((t) => t.data.date.startsWith(year))
+          .map(({ data: t }) => {
+            const pub = t.publications[0] ? pubById.get(t.publications[0]) : undefined;
+            const href = pub ? primaryUrl(pub.data) : undefined;
+            return <li class="entry">
+              <span class="entry-when">{formatYearMonth(t.date)}</span>
+              <div class="entry-what">
+                <h4>{t.title && href ? <a href={href}>{t.title}</a> : (t.title ?? t.event)}</h4>
+                <p>{t.short} · {t.event} · {t.city}, {t.country}</p>
+              </div>
+            </li>;
+          })}
+      </ol>
+    </div>)}
+  </section>
+
+  <section class="section defer" aria-labelledby="service" style="--defer-size: 2400px">
+    <h2 id="service" class="section-title">Service</h2>
+    <p class="prose">
+      I have completed {metrics.reviews} peer reviews for journals and conferences.
+    </p>
+    {GROUPS.map((g) => {
+      const items = service
+        .filter((s) => s.kind === g.kind)
+        .sort((a, b) => lastYear(b.years) - lastYear(a.years) || a.venue.localeCompare(b.venue));
+      return (
+        items.length > 0 && (
+          <>
+            <h3 class="subhead">{g.title}</h3>
+            <ul class="entries">
+              {items.map((s) => <li class="entry">
+                <span class="entry-when">{formatYears(s.years)}</span>
+                <div class="entry-what">
+                  <h4>{s.url ? <a href={s.url}>{s.venue}</a> : s.venue}</h4>
+                  <p>{s.role}</p>
+                  {s.note && <p>{s.note}</p>}
+                </div>
+              </li>)}
+            </ul>
+          </>
+        )
+      );
+    })}
+  </section>
+</Page>
+
+<style>
+  .note {
+    margin-block-start: var(--space-3);
+  }
+
+  .entry-what h4 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .entry-what h4 a {
+    color: var(--color-text);
+  }
+
+  .section:last-child {
+    padding-block-end: var(--space-8);
+  }
+</style>

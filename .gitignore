@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Astro build output and generated types
+dist/
+.astro/
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Logs
+npm-debug.log*
+*.log
+
+# Playwright (CV PDF rendering and screenshot checks)
+playwright-report/
+test-results/
+/blob-report/
+/playwright/.cache/
+
+# Link checker cache
+.lycheecache
+
+# Editors and OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Local reports from npm run review / lighthouse
+/review/
+/lighthouse/

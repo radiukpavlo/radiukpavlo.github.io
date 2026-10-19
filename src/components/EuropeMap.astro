@@ -1,0 +1,71 @@
+---
+/** Static, themable SVG map of Europe with venue pins, rendered entirely at build time. */
+import { buildEuropeMap, type MapPin } from '@/lib/europe-map';
+
+interface Props {
+  pins: MapPin[];
+  title: string;
+}
+
+const { pins, title } = Astro.props;
+const map = buildEuropeMap(pins);
+const titleId = 'europe-map-title';
+---
+
+<figure class="europe-map">
+  <svg viewBox={`0 0 ${map.width} ${map.height}`} role="img" aria-labelledby={titleId}>
+    <title id={titleId}>{title}</title>
+    <path class="graticule" d={map.graticule}></path>
+    <path class="land" d={map.land}></path>
+    <path class="ukraine" d={map.ukraine}></path>
+    <path class="borders" d={map.borders}></path>
+    {map.pins.map((p) => <g
+      class:list={['pin', { home: p.home }]}
+      transform={`translate(${p.x} ${p.y})`}
+    >
+      <title>{p.name}</title>
+      <circle r={p.home ? 7 : 5.5} />
+    </g>)}
+  </svg>
+</figure>
+
+<style>
+  .europe-map svg {
+    display: block;
+    inline-size: 100%;
+    max-inline-size: 44rem;
+    block-size: auto;
+    background: var(--color-bg);
+  }
+
+  .graticule {
+    fill: none;
+    stroke: var(--color-rule);
+    stroke-width: 0.5;
+  }
+
+  .land {
+    fill: var(--color-map-land);
+  }
+
+  .ukraine {
+    fill: var(--color-accent-soft);
+  }
+
+  .borders {
+    fill: none;
+    stroke: var(--color-bg);
+    stroke-width: 0.8;
+    stroke-linejoin: round;
+  }
+
+  .pin circle {
+    fill: var(--color-accent);
+    stroke: var(--color-bg);
+    stroke-width: 2;
+  }
+
+  .pin.home circle {
+    fill: var(--color-text);
+  }
+</style>

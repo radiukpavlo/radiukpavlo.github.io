@@ -1,0 +1,108 @@
+---
+import '@/styles/fonts.css';
+import '@fontsource-variable/jetbrains-mono';
+import '@/styles/tokens.css';
+import '@/styles/global.css';
+import Analytics from '@/components/Analytics.astro';
+import SiteFooter from '@/components/SiteFooter.astro';
+import SiteHeader from '@/components/SiteHeader.astro';
+import { existsSync } from 'node:fs';
+import { getProfile, profileLinks } from '@/lib/profile';
+
+interface Props {
+  /** Page title without the site name; omit on the home page. */
+  title?: string;
+  description: string;
+  /** Extra schema.org objects for this page. */
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, jsonLd = [] } = Astro.props;
+const profile = await getProfile();
+const site = Astro.site ?? new URL('https://radiukpavlo.github.io');
+const canonical = new URL(Astro.url.pathname, site).href;
+const slug = Astro.url.pathname.replace(/^\/|\/$/g, '') || 'home';
+const ogImage = new URL(`/og/${existsSync(`public/og/${slug}.png`) ? slug : 'home'}.png`, site)
+  .href;
+const fullTitle = title
+  ? `${title} — Dr. ${profile.name}`
+  : `Dr. ${profile.name} — ${profile.tagline}`;
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.href}#person`,
+  name: profile.name,
+  honorificPrefix: profile.honorific,
+  jobTitle: profile.position,
+  url: site.href,
+  affiliation: {
+    '@type': 'CollegeOrUniversity',
+    name: profile.university,
+    url: profile.universityUrl,
+    address: { '@type': 'PostalAddress', addressLocality: profile.city, addressCountry: 'UA' },
+  },
+  knowsAbout: [
+    'Explainable artificial intelligence',
+    'Medical image analysis',
+    'UAV-based infrastructure inspection',
+    'Intelligent transport systems',
+  ],
+  image: new URL('/pavlo-radiuk-portrait.jpg', site).href,
+  sameAs: profileLinks(profile.ids).map((link) => link.href),
+};
+---
+
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      try {
+        document.querySelector('meta[name="color-scheme"]').content =
+          localStorage.getItem('color-scheme') ?? 'light dark';
+      } catch (e) {}
+    </script>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="preload" href="/fonts/serif-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/sans-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link
+      rel="preload"
+      href="/fonts/serif-italic-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#1c2638" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={`Dr. ${profile.name}`} />
+    <meta property="og:locale" content="en_GB" />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={`${title ?? 'Home'} — Dr. ${profile.name}`} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify([person, ...jsonLd])} />
+    <Analytics />
+  </head>
+  <body>
+    <a class="skip-link visually-hidden" href="#content">Skip to main content</a>
+    <SiteHeader />
+    <main id="content" tabindex="-1">
+      <slot />
+    </main>
+    <SiteFooter />
+  </body>
+</html>

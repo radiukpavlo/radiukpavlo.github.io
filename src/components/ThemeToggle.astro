@@ -1,0 +1,66 @@
+---
+/**
+ * Two-state colour-scheme toggle: "system" or the opposite of what is rendered.
+ * The override lives in <meta name="color-scheme"> (see tokens.css) and localStorage; a choice
+ * that matches the system preference clears the stored value instead of pinning it.
+ */
+import Icon from '@/components/Icon.astro';
+---
+
+<button type="button" class="theme-toggle" data-theme-toggle>
+  <span class="only-light"
+    ><Icon name="lucide:sun" size="1.15em" /><span class="sr-only">Switch to dark theme</span></span
+  >
+  <span class="only-dark"
+    ><Icon name="lucide:moon" size="1.15em" /><span class="sr-only"
+      >Switch to light theme</span
+    ></span
+  >
+</button>
+
+<script>
+  const KEY = 'color-scheme';
+  const meta = document.querySelector<HTMLMetaElement>('meta[name="color-scheme"]');
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  const systemScheme = () => (system.matches ? 'dark' : 'light');
+  const rendered = () =>
+    meta?.content === 'light' || meta?.content === 'dark' ? meta.content : systemScheme();
+
+  for (const button of document.querySelectorAll('[data-theme-toggle]')) {
+    button.addEventListener('click', () => {
+      if (!meta) return;
+      const target = rendered() === 'dark' ? 'light' : 'dark';
+      const backToSystem = target === systemScheme();
+      try {
+        if (backToSystem) localStorage.removeItem(KEY);
+        else localStorage.setItem(KEY, target);
+      } catch {
+        // Storage blocked: still apply the scheme for this page view.
+      }
+      meta.content = backToSystem ? 'light dark' : target;
+    });
+  }
+
+  window.addEventListener('storage', (event) => {
+    if (event.key === KEY && meta) meta.content = event.newValue ?? 'light dark';
+  });
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-grid;
+    place-items: center;
+    min-inline-size: 2.5rem;
+    min-block-size: 2.5rem;
+    padding: 0;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: border-color var(--duration) var(--ease);
+  }
+  .theme-toggle:hover {
+    border-color: var(--color-accent);
+  }
+</style>

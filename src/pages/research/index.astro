@@ -1,0 +1,138 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import PubRow from '@/components/PubRow.astro';
+import { byYearDesc, type Publication } from '@/lib/format';
+
+const pubs = (await getCollection('publications')).sort(byYearDesc);
+const inTopic = (topic: string) => pubs.filter((p) => p.data.topics.includes(topic as never));
+const recent = (topic: string, n = 3) => inTopic(topic).slice(0, n);
+
+const areas = [
+  {
+    id: 'medical',
+    title: 'Medical AI',
+    text: 'Explainable deep learning for ECG arrhythmia detection, cardiac MRI segmentation and classification, and pneumonia diagnosis from chest radiographs and CT — the line of work that began with my Ph.D. Explanations are expressed in clinical features and checked with clinicians.',
+  },
+  {
+    id: 'uav-energy',
+    title: 'Energy and UAV inspection',
+    text: 'UAV-based inspection of wind turbines and photovoltaic plants: defect detection from RGB, thermal and multispectral imagery, criticality assessment with fuzzy logic and adaptive inspection trajectories, developed with partners in Ukraine and Poland. Related work covers UAV localisation and precision agriculture.',
+  },
+  {
+    id: 'mobility',
+    title: 'Smart mobility',
+    text: 'Reinforcement-learning traffic-signal control and traffic-pattern recognition for the Khmelnytskyi pilot of the Horizon Europe project U_CAN, which supports Ukrainian cities on their path to climate neutrality.',
+  },
+];
+
+const software = pubs.filter((p) => p.data.code) as Publication[];
+const hasMentees = pubs.some(
+  (p) =>
+    (recent('xai').includes(p) || areas.some((a) => recent(a.id).includes(p))) &&
+    p.data.mentees.length > 0,
+);
+---
+
+<Page
+  title="Research"
+  description="Explainable AI through transition matrices, applied to medical imaging, UAV inspection of energy infrastructure and smart mobility."
+  lede="Explainable artificial intelligence that domain experts can check, applied to medical imaging, energy infrastructure and urban mobility."
+>
+  <section class="section" aria-labelledby="approach">
+    <h2 id="approach" class="section-title">Approach</h2>
+    <div class="prose stack">
+      <p>
+        Most explanations of deep networks are heatmaps: they show where a model looked, not what it
+        concluded in terms an expert would use. My work instead constructs a transition matrix — an
+        explicit, linear mapping from the features a network has learned to the features a domain
+        expert already reasons with — so that an explanation becomes a change of basis that can be
+        inspected, tested and audited.
+      </p>
+      <p>
+        Recent work extends the approach with Lie-group equivariance, rough-set production rules
+        that turn mapped features into readable decision rules, and conflict-aware auditing that
+        shows where model and expert disagree. Explanations are evaluated against expert judgement;
+        agreement reached Cohen’s κ of 0.89 for ECG and 0.80 for cardiac MRI.
+      </p>
+    </div>
+    <h3 class="subhead">Key publications</h3>
+    <ol class="pubs">
+      {recent('xai').map((entry) => (
+        <PubRow entry={entry} showThumbnail={false} />
+      ))}
+    </ol>
+    <p class="more sans">
+      <a href="/publications/?topic=xai"
+        >All {inTopic('xai').length} publications on explainable AI</a
+      >
+    </p>
+  </section>
+
+  {areas.map((area) => <section
+    class="section defer"
+    aria-labelledby={area.id}
+    style="--defer-size: 900px"
+  >
+    <h2 id={area.id} class="section-title">
+      {area.title}
+    </h2>
+    <p class="prose">{area.text}</p>
+    <h3 class="subhead">Recent publications</h3>
+    <ol class="pubs">
+      {recent(area.id).map((entry) => (
+        <PubRow entry={entry} showThumbnail={false} />
+      ))}
+    </ol>
+    <p class="more sans">
+      <a href={`/publications/?topic=${area.id}`}>
+        All {inTopic(area.id).length} publications in this area
+      </a>
+    </p>
+  </section>)}
+
+  <section class="section defer" aria-labelledby="software" style="--defer-size: 700px">
+    <h2 id="software" class="section-title">Data and software</h2>
+    <ul class="entries">
+      {software.map((p) => <li class="entry">
+        <span class="entry-when">Code · {p.data.year}</span>
+        <div class="entry-what">
+          <h3>
+            <a href={p.data.code}>{p.data.code?.split('/').pop()}</a>
+          </h3>
+          <p>{p.data.title}</p>
+        </div>
+      </li>)}
+      <li class="entry">
+        <span class="entry-when">Dataset · 2025</span>
+        <div class="entry-what">
+          <h3><a href="https://doi.org/10.5281/zenodo.17079830">Custom ACDC test set</a></h3>
+          <p>
+            Prepared cardiac MRI images and segmentation masks for testing cardiac-MRI analysis
+            models (Zenodo, with V. Slobodzian, O. Barmak, L. Klymenko and I. Krak).
+          </p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  {hasMentees && <p class="note legend">† mentored junior researcher</p>}
+</Page>
+
+<style>
+  .pubs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .more {
+    margin-block-start: var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .legend {
+    padding-block-end: var(--space-7);
+  }
+</style>

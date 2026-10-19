@@ -1,0 +1,190 @@
+---
+/** Site header: name, primary navigation (disclosure on narrow screens) and theme toggle. */
+import Icon from '@/components/Icon.astro';
+import ThemeToggle from '@/components/ThemeToggle.astro';
+
+const NAV = [
+  { href: '/research/', label: 'Research' },
+  { href: '/publications/', label: 'Publications' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/talks-service/', label: 'Talks & service' },
+  { href: '/teaching/', label: 'Teaching' },
+  { href: '/cv/', label: 'CV' },
+  { href: '/partner-kit/', label: 'Partner kit' },
+];
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) => path === href || path.startsWith(href);
+---
+
+<header class="site-header sans">
+  <div class="container bar">
+    <a class="brand" href="/">Pavlo Radiuk</a>
+
+    <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="site-nav" hidden>
+      <Icon name="lucide:menu" size="1.2em" />
+      <span class="nav-toggle-label">Menu</span>
+    </button>
+
+    <nav id="site-nav" aria-label="Primary">
+      <ul>
+        {NAV.map((item) => <li>
+          <a href={item.href} aria-current={isCurrent(item.href) ? 'page' : undefined}>
+            {item.label}
+          </a>
+        </li>)}
+      </ul>
+    </nav>
+
+    <ThemeToggle />
+  </div>
+</header>
+
+<script>
+  const header = document.querySelector<HTMLElement>('.site-header');
+  const toggle = header?.querySelector<HTMLButtonElement>('.nav-toggle');
+  if (header && toggle) {
+    header.dataset.js = '';
+    toggle.hidden = false;
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      header.toggleAttribute('data-open', open);
+    };
+    toggle.addEventListener('click', () =>
+      setOpen(toggle.getAttribute('aria-expanded') !== 'true'),
+    );
+    header
+      .querySelectorAll('nav a')
+      .forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && header.hasAttribute('data-open')) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+  }
+</script>
+
+<style>
+  .site-header {
+    position: sticky;
+    inset-block-start: 0;
+    z-index: 50;
+    background: var(--color-bg);
+    border-bottom: 1px solid var(--color-rule);
+    view-transition-name: site-header;
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    min-block-size: var(--header-height);
+  }
+
+  .brand {
+    margin-inline-end: auto;
+    font-family: var(--font-serif);
+    font-size: var(--text-lg);
+    font-weight: 600;
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-4);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  nav a {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 2.5rem;
+    font-size: var(--text-sm);
+    color: var(--color-text);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+  }
+
+  nav a:hover {
+    border-bottom-color: var(--color-rule);
+  }
+
+  nav a[aria-current='page'] {
+    color: var(--color-accent-text);
+    border-bottom-color: var(--color-accent);
+  }
+
+  .nav-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    min-block-size: 2.5rem;
+    padding-inline: var(--space-3);
+    background: transparent;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .nav-toggle[hidden] {
+    display: none;
+  }
+
+  /* Narrow screens: with JS, the navigation becomes a disclosure panel under the bar. */
+  @media (max-width: 63.99rem) {
+    .bar {
+      flex-wrap: wrap;
+    }
+
+    nav {
+      order: 3;
+      flex-basis: 100%;
+      padding-block-end: var(--space-3);
+    }
+
+    .site-header[data-js] nav {
+      display: none;
+    }
+
+    .site-header[data-js][data-open] nav {
+      display: block;
+    }
+
+    .site-header[data-open] nav ul {
+      flex-direction: column;
+    }
+  }
+
+  /* Very narrow screens: icon-only menu button, label kept for assistive tech. */
+  @media (max-width: 29.99rem) {
+    .nav-toggle-label {
+      position: absolute;
+      clip-path: inset(50%);
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      white-space: nowrap;
+    }
+
+    .nav-toggle {
+      justify-content: center;
+      min-inline-size: 2.5rem;
+      padding-inline: var(--space-2);
+    }
+
+    .bar {
+      gap: var(--space-2);
+    }
+  }
+
+  @media (min-width: 64rem) {
+    .nav-toggle {
+      display: none !important;
+    }
+  }
+</style>

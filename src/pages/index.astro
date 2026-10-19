@@ -1,0 +1,277 @@
+---
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import headshot from '@/assets/headshot/pavlo-radiuk-square.jpg';
+import Base from '@/layouts/Base.astro';
+import EmailLink from '@/components/EmailLink.astro';
+import PubRow from '@/components/PubRow.astro';
+import { byYearDesc, formatDate, primaryUrl } from '@/lib/format';
+import { getProfile, profileLinks } from '@/lib/profile';
+
+const profile = await getProfile();
+const links = Object.fromEntries(profileLinks(profile.ids).map((l) => [l.key, l]));
+const pubs = await getCollection('publications');
+const selected = pubs.filter((p) => p.data.selected).sort(byYearDesc);
+const hasMentees = selected.some((p) => p.data.mentees.length > 0);
+
+const news = (await getCollection('news'))
+  .sort((a, b) => +b.data.date - +a.data.date)
+  .slice(0, 4)
+  .map((n) => ({ ...n.data, iso: n.data.date.toISOString().slice(0, 10) }));
+
+const areas = [
+  {
+    id: 'medical',
+    title: 'Medical AI',
+    text: 'Explanations for ECG, cardiac MRI and chest radiographs, evaluated against clinical expert judgement.',
+  },
+  {
+    id: 'uav-energy',
+    title: 'Energy and UAV inspection',
+    text: 'Detection and criticality assessment of defects in wind turbines and photovoltaic plants from UAV imagery.',
+  },
+  {
+    id: 'mobility',
+    title: 'Smart mobility',
+    text: 'Reinforcement-learning signal control and traffic-pattern recognition for urban mobility.',
+  },
+];
+
+const articles = selected.map((p) => ({
+  '@context': 'https://schema.org',
+  '@type': 'ScholarlyArticle',
+  headline: p.data.title,
+  datePublished: String(p.data.year),
+  author: p.data.authors.map((a) => ({ '@type': 'Person', name: `${a.given} ${a.family}` })),
+  ...(p.data.doi && { identifier: `https://doi.org/${p.data.doi}`, url: primaryUrl(p.data) }),
+  ...(p.data.journal && { isPartOf: { '@type': 'Periodical', name: p.data.journal } }),
+}));
+---
+
+<Base
+  description="Dr. Pavlo Radiuk, Associate Professor of Computer Science at Khmelnytskyi National University, Ukraine: explainable AI for medical imaging, UAV inspection and smart mobility."
+  jsonLd={articles}
+>
+  <section class="container intro">
+    <Image
+      class="portrait"
+      src={headshot}
+      alt="Pavlo Radiuk"
+      widths={[112, 224, 336]}
+      sizes="7rem"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="intro-text">
+      <h1>Pavlo Radiuk</h1>
+      <p class="role sans">
+        {profile.position}, {profile.department}<br />
+        <a href={profile.universityUrl}>{profile.university}</a>, {profile.country}
+      </p>
+      <p class="bio">
+        I work on explainable artificial intelligence. My methods map what a deep network has
+        learned onto the features that clinicians and engineers already use, so that its decisions
+        can be checked and audited. I apply them in medical imaging, UAV inspection of energy
+        infrastructure and urban traffic control, and I am a researcher in the Horizon Europe
+        project U_CAN.
+      </p>
+      <p class="links sans">
+        <EmailLink address={profile.emails[0]?.address ?? ''} />
+        <span aria-hidden="true">·</span>
+        <a href="/cv/">CV</a>
+        <span aria-hidden="true">·</span>
+        <a href={links.scholar?.href}>Google Scholar</a>
+        <span aria-hidden="true">·</span>
+        <a href={links.orcid?.href}>ORCID</a>
+        <span aria-hidden="true">·</span>
+        <a href={links.github?.href}>GitHub</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="container section" aria-labelledby="research-title">
+    <h2 id="research-title" class="section-title">Research</h2>
+    <ul class="areas">
+      {areas.map((a) => <li>
+        <h3>
+          <a href={`/research/#${a.id}`}>{a.title}</a>
+        </h3>
+        <p>{a.text}</p>
+      </li>)}
+    </ul>
+  </section>
+
+  <section class="container section" aria-labelledby="selected-title">
+    <div class="section-head">
+      <h2 id="selected-title" class="section-title">Selected publications</h2>
+      <a class="more sans" href="/publications/">Full list</a>
+    </div>
+    <ol class="pubs">
+      {selected.map((entry, i) => (
+        <PubRow entry={entry} eager={i < 2} />
+      ))}
+    </ol>
+    {hasMentees && <p class="legend sans">† mentored junior researcher</p>}
+  </section>
+
+  <section class="container section defer" aria-labelledby="news-title" style="--defer-size: 320px">
+    <h2 id="news-title" class="section-title">News</h2>
+    <ol class="news">
+      {news.map((n) => <li>
+        <time class="sans" datetime={n.iso}>
+          {formatDate(n.iso)}
+        </time>
+        <span>{n.link ? <a href={n.link}>{n.title}</a> : n.title}</span>
+      </li>)}
+    </ol>
+  </section>
+
+  <section
+    class="container section collab defer"
+    aria-labelledby="collab-title"
+    style="--defer-size: 260px"
+  >
+    <h2 id="collab-title" class="section-title">Collaboration</h2>
+    <p class="prose">
+      I welcome partners for Horizon Europe, MSCA and EuroHPC proposals in explainable AI, medical
+      AI, UAV inspection and smart mobility. The <a href="/partner-kit/">partner kit</a> has a
+      capability statement, short biographies and my institution’s participant code.
+    </p>
+  </section>
+</Base>
+
+<style>
+  .intro {
+    display: grid;
+    gap: var(--space-5) var(--space-6);
+    padding-block: var(--space-8) var(--space-6);
+  }
+
+  @media (min-width: 40rem) {
+    .intro {
+      grid-template-columns: 7rem minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .portrait {
+    inline-size: 7rem;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: var(--radius-lg);
+    background: var(--color-surface-2);
+  }
+
+  .intro-text {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  h1 {
+    font-size: var(--text-display);
+  }
+
+  .role {
+    font-size: var(--text-base);
+    color: var(--color-text-muted);
+  }
+
+  .bio {
+    max-width: var(--measure);
+    margin-block-start: var(--space-2);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .areas {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+    gap: var(--space-5) var(--space-6);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .areas h3 {
+    font-size: var(--text-lg);
+    margin-block-end: var(--space-1);
+  }
+
+  .areas h3 a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .areas h3 a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
+
+  .areas p {
+    color: var(--color-text-muted);
+  }
+
+  .section-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .more {
+    font-size: var(--text-sm);
+  }
+
+  .pubs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .legend {
+    margin-block-start: var(--space-3);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .news {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .news li {
+    display: grid;
+    gap: 0 var(--space-5);
+  }
+
+  @media (min-width: 40rem) {
+    .news li {
+      grid-template-columns: 7rem minmax(0, 1fr);
+    }
+  }
+
+  .news time {
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+  }
+
+  .news a {
+    color: var(--color-text);
+  }
+
+  .collab {
+    padding-block-end: var(--space-8);
+  }
+</style>

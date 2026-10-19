@@ -1,0 +1,267 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import EmailLink from '@/components/EmailLink.astro';
+import PubRow from '@/components/PubRow.astro';
+import { byYearDesc, formatNumber, formatRange, formatYearMonth, formatYears } from '@/lib/format';
+import { getMetrics, getProfile, profileLinks } from '@/lib/profile';
+
+const profile = await getProfile();
+const metrics = await getMetrics();
+const links = profileLinks(profile.ids);
+const byStart = <T extends { data: { start?: string; end: string | null } }>(a: T, b: T) =>
+  (b.data.start ?? b.data.end ?? '').localeCompare(a.data.start ?? a.data.end ?? '');
+
+const positions = (await getCollection('positions')).sort(byStart);
+const research = positions.filter((p) => p.data.sector !== 'industry');
+const industry = positions.filter((p) => p.data.sector === 'industry');
+const education = (await getCollection('education')).sort(byStart);
+const projects = (await getCollection('projects')).sort(byStart);
+const awards = await getCollection('awards');
+const service = (await getCollection('service')).map((s) => s.data);
+const teaching = (await getCollection('teaching')).filter((c) => c.data.current);
+
+const pubs = await getCollection('publications');
+const count = (t: string) => pubs.filter((p) => p.data.pubtype === t).length;
+const selected = pubs.filter((p) => p.data.selected).sort(byYearDesc);
+
+const pcs = service.filter((s) => s.kind === 'programme-committee');
+const editorial = service.filter((s) => s.kind === 'editorial');
+const organizing = service.filter((s) => s.kind === 'organizing');
+const dissertation = service.filter((s) => s.kind === 'dissertation');
+const reviewing = service.filter((s) => s.kind === 'conference-reviewer');
+
+const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
+---
+
+<Page
+  title="Curriculum vitae"
+  description="Curriculum vitae of Dr. Pavlo Radiuk: positions, education, projects, publications, awards, service and teaching."
+>
+  <div slot="header" class="cv-head sans">
+    <p>
+      <strong>Dr. {profile.name}</strong> · {profile.position}, {profile.department},
+      {profile.faculty}, {profile.university}, {profile.city}, {profile.country}
+    </p>
+    <p class="contact">
+      {profile.emails.map((e) => (
+        <EmailLink address={e.address} />
+      ))}
+      {links.slice(0, 4).map((l) => <a href={l.href} class="no-print-url">
+        {l.label}
+      </a>)}
+    </p>
+    <p class="no-print"><a class="pdf" href={PDF}>Download PDF</a></p>
+  </div>
+
+  <section class="section" aria-labelledby="cv-positions">
+    <h2 id="cv-positions" class="section-title">Academic and research positions</h2>
+    <ol class="entries">
+      {research.map(({ data: p }) => <li class="entry">
+        <span class="entry-when">{formatRange(p.start, p.end)}</span>
+        <div class="entry-what">
+          <h3>{p.role}</h3>
+          <p>{[p.unit, p.org, `${p.city}, ${p.country}`].filter(Boolean).join(', ')}</p>
+          {p.highlights.length > 0 && <p>{p.highlights.join(' ')}</p>}
+        </div>
+      </li>)}
+    </ol>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-industry" style="--defer-size: 600px">
+    <h2 id="cv-industry" class="section-title">Industry</h2>
+    <ol class="entries">
+      {industry.map(({ data: p }) => <li class="entry">
+        <span class="entry-when">{formatRange(p.start, p.end)}</span>
+        <div class="entry-what">
+          <h3>{p.role}</h3>
+          <p>{[p.org, `${p.city}, ${p.country}`].filter(Boolean).join(', ')}</p>
+          {p.summary && <p>{p.summary}</p>}
+        </div>
+      </li>)}
+    </ol>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-education" style="--defer-size: 500px">
+    <h2 id="cv-education" class="section-title">Education</h2>
+    <ol class="entries">
+      {education.map(({ data: e }) => <li class="entry">
+        <span class="entry-when">
+          {e.status === 'in-progress'
+            ? `${e.start ? formatYearMonth(e.start) : ''} – ${e.end ? formatYearMonth(e.end) : ''} (expected)`
+            : e.end
+              ? formatYearMonth(e.end)
+              : ''}
+        </span>
+        <div class="entry-what">
+          <h3>{e.degree}, {e.field}</h3>
+          <p>
+            {`${e.institution}, ${e.city}${e.honours ? `; ${e.honours}` : ''}`}
+          </p>
+          {e.thesis && <p>Thesis: {e.thesis}</p>}
+          {e.advisor && <p>{e.advisor}</p>}
+        </div>
+      </li>)}
+    </ol>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-projects" style="--defer-size: 300px">
+    <h2 id="cv-projects" class="section-title">Research projects</h2>
+    <ol class="entries">
+      {projects.map(({ data: p }) => <li class="entry">
+        <span class="entry-when">{formatRange(p.start, p.end)}</span>
+        <div class="entry-what">
+          <h3>
+            {p.title}
+            {p.acronym && <> ({p.acronym})</>}
+          </h3>
+          <p>
+            {`${p.programme}${p.grantId ? `, ${p.grantId}` : ''} · ${p.role}`}
+          </p>
+        </div>
+      </li>)}
+    </ol>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-pubs" style="--defer-size: 1200px">
+    <h2 id="cv-pubs" class="section-title">Publications</h2>
+    <p class="prose">
+      {count('journal')} journal articles, {count('conference')} conference papers and
+      {count('chapter')} book chapters. Google Scholar: {formatNumber(metrics.scholar.citations)}
+      citations, h-index {metrics.scholar.h}; Scopus: h-index {metrics.scopus.h}. The full list is
+      on the <a href="/publications/">publications page</a>. Selected:
+    </p>
+    <ol class="pubs">
+      {selected.map((entry) => (
+        <PubRow entry={entry} showThumbnail={false} />
+      ))}
+    </ol>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-awards" style="--defer-size: 250px">
+    <h2 id="cv-awards" class="section-title">Awards</h2>
+    <ul class="entries">
+      {awards.map(({ data: a }) => <li class="entry">
+        <span class="entry-when">{a.years}</span>
+        <div class="entry-what">
+          <h3>{a.title}</h3>
+          <p>{a.issuer}</p>
+        </div>
+      </li>)}
+    </ul>
+  </section>
+
+  <section class="section defer" aria-labelledby="cv-service" style="--defer-size: 600px">
+    <h2 id="cv-service" class="section-title">Service</h2>
+    <dl class="service sans">
+      <div>
+        <dt>Peer review</dt>
+        <dd>{metrics.reviews} reviews for journals and conferences</dd>
+      </div>
+      <div>
+        <dt>Programme committees</dt>
+        <dd>{pcs.map((s) => `${s.venue.split(' — ')[0]} (${formatYears(s.years)})`).join('; ')}</dd>
+      </div>
+      <div>
+        <dt>Conference reviewing</dt>
+        <dd>
+          {reviewing.map((s) => `${s.venue.split(' — ')[0]} (${formatYears(s.years)})`).join('; ')}
+        </dd>
+      </div>
+      <div>
+        <dt>Editorial</dt>
+        <dd>
+          {editorial.map((s) => `${s.role}, ${s.venue} (${formatYears(s.years)})`).join('; ')}
+        </dd>
+      </div>
+      <div>
+        <dt>Organising</dt>
+        <dd>
+          {organizing.map((s) => `${s.role}, ${s.venue} (${formatYears(s.years)})`).join('; ')}
+        </dd>
+      </div>
+      <div>
+        <dt>Dissertation councils</dt>
+        <dd>
+          {dissertation.map((s) => `${s.role}, ${s.venue} (${formatYears(s.years)})`).join('; ')}
+        </dd>
+      </div>
+    </dl>
+  </section>
+
+  <section class="section last defer" aria-labelledby="cv-teaching" style="--defer-size: 250px">
+    <h2 id="cv-teaching" class="section-title">Teaching</h2>
+    <p class="prose">
+      {teaching
+        .map((c) => c.data.title + (c.data.language === 'en' ? ' (in English)' : ''))
+        .join('; ')}.
+    </p>
+  </section>
+</Page>
+
+<style>
+  .cv-head {
+    display: grid;
+    gap: var(--space-2);
+    margin-block-start: var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .cv-head strong {
+    color: var(--color-text);
+  }
+
+  .contact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+  }
+
+  .pdf {
+    font-weight: 600;
+  }
+
+  .pubs {
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .service {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .service div {
+    display: grid;
+    gap: 0 var(--space-5);
+  }
+
+  @media (min-width: 40rem) {
+    .service div {
+      grid-template-columns: 10rem minmax(0, 1fr);
+    }
+  }
+
+  dt {
+    color: var(--color-text-muted);
+  }
+
+  dd {
+    margin: 0;
+  }
+
+  .last {
+    padding-block-end: var(--space-8);
+  }
+
+  @media print {
+    .section {
+      break-inside: auto;
+    }
+  }
+</style>

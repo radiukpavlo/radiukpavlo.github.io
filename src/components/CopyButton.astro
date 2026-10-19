@@ -1,0 +1,67 @@
+---
+/**
+ * Copies the text of the element with id `target` to the clipboard. Hidden until JS confirms the
+ * Clipboard API, so it never appears as a dead control. Announces the result politely.
+ */
+interface Props {
+  target: string;
+  label: string;
+}
+
+const { target, label } = Astro.props;
+---
+
+<button type="button" class="copy-button sans" data-copy={target} hidden>{label}</button>
+
+<script>
+  let status = document.getElementById('copy-status');
+  if (!status) {
+    status = Object.assign(document.createElement('p'), {
+      id: 'copy-status',
+      className: 'sr-only',
+    });
+    status.setAttribute('aria-live', 'polite');
+    document.body.append(status);
+  }
+
+  if (navigator.clipboard?.writeText) {
+    for (const button of document.querySelectorAll<HTMLButtonElement>('button[data-copy]')) {
+      button.hidden = false;
+      const original = button.textContent ?? 'Copy';
+      button.addEventListener('click', async () => {
+        const source = document.getElementById(button.dataset.copy ?? '');
+        if (!source) return;
+        try {
+          await navigator.clipboard.writeText(source.textContent?.trim() ?? '');
+          button.textContent = 'Copied';
+          if (status) status.textContent = 'Copied to clipboard';
+        } catch {
+          if (status) status.textContent = 'Copy failed; select the text manually';
+        }
+        setTimeout(() => (button.textContent = original), 1800);
+      });
+    }
+  }
+</script>
+
+<style>
+  .copy-button {
+    min-block-size: 2rem;
+    padding-inline: var(--space-3);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .copy-button:hover {
+    border-color: var(--color-accent);
+  }
+
+  .copy-button[hidden] {
+    display: none;
+  }
+</style>

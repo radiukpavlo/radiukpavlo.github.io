@@ -1,0 +1,50 @@
+{
+  "name": "radiukpavlo.github.io",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Academic website of Dr. Pavlo Radiuk",
+  "author": "Pavlo Radiuk",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.22.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "fonts": "uv run --with fonttools --with brotli python -I scripts/build-fonts.py",
+    "assets": "node scripts/brand-assets.mjs",
+    "review": "node scripts/review.mjs review",
+    "weight": "node scripts/weight.mjs",
+    "lighthouse": "node scripts/lighthouse.mjs lighthouse"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "3.7.4",
+    "@fontsource-variable/jetbrains-mono": "5.3.0",
+    "@iconify-json/academicons": "1.2.4",
+    "@iconify-json/lucide": "1.2.146",
+    "@iconify-json/simple-icons": "1.2.100",
+    "@iconify/utils": "3.1.7",
+    "@retorquere/bibtex-parser": "12.1.9",
+    "astro": "7.4.0",
+    "d3-geo": "3.1.1",
+    "topojson-client": "3.1.0",
+    "world-atlas": "2.0.2"
+  },
+  "devDependencies": {
+    "@astrojs/check": "0.9.10",
+    "@fontsource-variable/source-sans-3": "5.3.1",
+    "@fontsource-variable/source-serif-4": "5.3.1",
+    "@types/d3-geo": "3.1.1",
+    "@types/topojson-client": "3.1.5",
+    "lighthouse": "13.5.0",
+    "playwright": "1.64.1",
+    "prettier": "3.9.10",
+    "prettier-plugin-astro": "1.1.1",
+    "typescript": "6.0.3"
+  }
+}

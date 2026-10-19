@@ -1,0 +1,73 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+
+const courses = (await getCollection('teaching')).filter((c) => c.data.current);
+const LEVELS = [
+  { id: 'bachelor', title: 'Bachelor’s programme' },
+  { id: 'master', title: 'Master’s programme' },
+  { id: 'phd', title: 'Doctoral (Ph.D.) programme' },
+] as const;
+---
+
+<Page
+  title="Teaching"
+  description="Courses taught by Dr. Pavlo Radiuk at Khmelnytskyi National University, open course materials and thesis supervision."
+  lede="Courses I teach in Computer Science at Khmelnytskyi National University in the 2026/27 academic year."
+>
+  {LEVELS.map((level) => {
+    const items = courses.filter((c) => c.data.level === level.id);
+    return (
+      items.length > 0 && <section class="section" aria-labelledby={`level-${level.id}`}>
+        <h2 id={`level-${level.id}`} class="section-title">
+          {level.title}
+        </h2>
+        <ul class="courses plain-list">
+          {items.map(({ data: c }) => <li>
+            {c.url ? <a href={c.url}>{c.title}</a> : c.title}
+            {c.language === 'en' && <span class="tag sans">taught in English</span>}
+            {c.url && <span class="tag sans">open course materials</span>}
+          </li>)}
+        </ul>
+      </section>
+    );
+  })}
+
+  <section class="section" aria-labelledby="supervision">
+    <h2 id="supervision" class="section-title">Supervision and mentoring</h2>
+    <div class="prose stack">
+      <p>
+        I have supervised bachelor’s and master’s theses since 2021, including course projects in
+        Intelligent Data Analysis.
+      </p>
+      <p>
+        I also mentor junior researchers through joint research: eleven early-career colleagues have
+        co-authored papers with me in medical AI, UAV inspection and intelligent transport. They are
+        marked † in my publication lists.
+      </p>
+    </div>
+  </section>
+</Page>
+
+<style>
+  .courses {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .courses li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-1) var(--space-3);
+  }
+
+  .tag {
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .section:last-child {
+    padding-block-end: var(--space-8);
+  }
+</style>

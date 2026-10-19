@@ -1,0 +1,37 @@
+- id: dsc
+  degree: D.Sc. (Doctor of Science, habilitation level)
+  field: Information Technologies
+  institution: Khmelnytskyi National University
+  city: Khmelnytskyi
+  start: '2025-09'
+  end: '2027-08'
+  status: in-progress
+  thesis: >-
+    Theoretical and Applied Foundations of an Intelligent Information Technology for Interpreting
+    Decisions Made by Artificial Intelligence Systems
+  advisor: Prof. Oleksander Barmak (scientific consultant)
+
+- id: phd
+  degree: Ph.D.
+  field: Computer Science
+  institution: Khmelnytskyi National University
+  city: Khmelnytskyi
+  start: '2017-09'
+  end: '2022'
+  status: completed
+  thesis: >-
+    Information Technology for the Early Diagnosis of Pneumonia by Individual Selection of the
+    Parameters of a Classification Model for Medical Images of the Lungs
+  advisor: Prof. Oleksander Barmak
+
+- id: msc
+  degree: M.Sc.
+  field: Mathematical and Computer Modelling
+  institution: Khmelnytskyi National University
+  city: Khmelnytskyi
+  end: '2017'
+  status: completed
+  thesis: >-
+    Optimisation of Filter Size Distribution in Convolutional Neural Networks for Classification
+    Problems
+  honours: with distinction

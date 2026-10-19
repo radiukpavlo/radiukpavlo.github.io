@@ -1,0 +1,32 @@
+---
+import Page from '@/layouts/Page.astro';
+
+const PAGES = [
+  { href: '/', label: 'Home' },
+  { href: '/research/', label: 'Research' },
+  { href: '/publications/', label: 'Publications' },
+  { href: '/projects/', label: 'Projects' },
+  { href: '/cv/', label: 'Curriculum vitae' },
+  { href: '/partner-kit/', label: 'Partner kit' },
+];
+---
+
+<Page
+  title="Page not found"
+  description="The requested page does not exist on the website of Dr. Pavlo Radiuk."
+  lede="The page you asked for does not exist or has moved. These pages may help:"
+>
+  <ul class="pages">
+    {PAGES.map((p) => <li>
+      <a href={p.href}>{p.label}</a>
+    </li>)}
+  </ul>
+</Page>
+
+<style>
+  .pages {
+    display: grid;
+    gap: var(--space-2);
+    padding-block-end: var(--space-9);
+  }
+</style>
