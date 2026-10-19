@@ -1,0 +1,141 @@
+---
+/**
+ * Publications per year, journal articles vs other outputs, drawn at build time as SVG with a
+ * screen-reader data table. Preprints are excluded (they are not published outputs).
+ */
+import type { Publication } from '@/lib/format';
+
+interface Props {
+  pubs: Publication[];
+}
+
+const published = Astro.props.pubs.filter((p) => p.data.pubtype !== 'preprint');
+const years = published.map((p) => p.data.year);
+const first = Math.min(...years);
+const last = Math.max(...years);
+const rows = Array.from({ length: last - first + 1 }, (_, i) => {
+  const year = first + i;
+  const inYear = published.filter((p) => p.data.year === year);
+  const journal = inYear.filter((p) => p.data.pubtype === 'journal').length;
+  return { year, journal, other: inYear.length - journal, total: inYear.length };
+});
+
+const W = 640;
+const H = 200;
+const PAD = { top: 18, bottom: 26, side: 4 };
+const max = Math.max(...rows.map((r) => r.total), 1);
+const slot = (W - PAD.side * 2) / rows.length;
+const barW = Math.min(36, slot * 0.6);
+const scale = (n: number) => (n / max) * (H - PAD.top - PAD.bottom);
+---
+
+<figure class="output-chart">
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-labelledby="output-chart-title">
+    <title id="output-chart-title">Published works per year, {first}–{last}</title>
+    <line class="axis" x1="0" x2={W} y1={H - PAD.bottom} y2={H - PAD.bottom}></line>
+    {rows.map((r, i) => {
+      const x = PAD.side + i * slot + (slot - barW) / 2;
+      const base = H - PAD.bottom;
+      const hj = scale(r.journal);
+      const ho = scale(r.other);
+      return <g>
+        {r.other > 0 && <rect class="other" x={x} y={base - hj - ho} width={barW} height={ho} />}
+        {r.journal > 0 && <rect class="journal" x={x} y={base - hj} width={barW} height={hj} />}
+        {r.total > 0 && <text class="total" x={x + barW / 2} y={base - hj - ho - 5}>
+          {r.total}
+        </text>}
+        <text class="year" x={x + barW / 2} y={H - 8}>
+          {r.year}
+        </text>
+      </g>;
+    })}
+  </svg>
+  <figcaption class="sans">
+    <span class="key journal-key"></span> Journal articles <span class="key other-key"></span>
+    Conference papers and chapters
+  </figcaption>
+  <table class="sr-only">
+    <caption>
+      Published works per year
+    </caption>
+    <thead>
+      <tr>
+        <th scope="col">Year</th>
+        <th scope="col">Journal articles</th>
+        <th scope="col">Other</th>
+      </tr>
+    </thead>
+    <tbody>
+      {rows.map((r) => <tr>
+        <th scope="row">{r.year}</th>
+        <td>{r.journal}</td>
+        <td>{r.other}</td>
+      </tr>)}
+    </tbody>
+  </table>
+</figure>
+
+<style>
+  .output-chart svg {
+    display: block;
+    inline-size: 100%;
+    block-size: auto;
+    max-inline-size: 44rem;
+  }
+
+  .axis {
+    stroke: var(--color-rule);
+  }
+
+  .journal {
+    fill: var(--color-accent);
+  }
+
+  .other {
+    fill: var(--color-text-muted);
+    opacity: 0.55;
+  }
+
+  text {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    text-anchor: middle;
+    fill: var(--color-text-muted);
+  }
+
+  .total {
+    fill: var(--color-text);
+    font-weight: 600;
+  }
+
+  figcaption {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    margin-block-start: var(--space-2);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+
+  .key {
+    display: inline-block;
+    inline-size: 0.8rem;
+    block-size: 0.8rem;
+    border-radius: 2px;
+  }
+
+  .key + .key,
+  .other-key {
+    margin-inline-start: var(--space-3);
+  }
+
+  .journal-key {
+    background: var(--color-accent);
+  }
+
+  .other-key {
+    background: var(--color-text-muted);
+    opacity: 0.55;
+  }
+</style>

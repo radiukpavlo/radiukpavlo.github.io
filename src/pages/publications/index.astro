@@ -1,0 +1,323 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import CopyButton from '@/components/CopyButton.astro';
+import DimensionsBadge from '@/components/DimensionsBadge.astro';
+import MetricsTable from '@/components/MetricsTable.astro';
+import OutputChart from '@/components/OutputChart.astro';
+import PubRow from '@/components/PubRow.astro';
+import { TOPICS } from '@/content.config';
+import { TOPIC_LABELS, byYearDesc, displayAuthors, toBibtex, venueLine } from '@/lib/format';
+
+const pubs = (await getCollection('publications')).sort(byYearDesc);
+const registered = (await getCollection('registeredWorks')).sort(
+  (a, b) => b.data.year - a.data.year,
+);
+
+const years = [...new Set(pubs.map((p) => p.data.year))].sort((a, b) => b - a);
+const TYPES = [
+  { id: 'journal', label: 'Journal articles' },
+  { id: 'conference', label: 'Conference papers' },
+  { id: 'chapter', label: 'Book chapters' },
+  { id: 'preprint', label: 'Preprints' },
+] as const;
+const typeCount = (id: string) => pubs.filter((p) => p.data.pubtype === id).length;
+const topicCount = (id: string) => pubs.filter((p) => p.data.topics.includes(id as never)).length;
+
+const searchText = (p: (typeof pubs)[number]) =>
+  [
+    p.data.title,
+    displayAuthors(p.data)
+      .map((a) => a.name)
+      .join(' '),
+    venueLine(p.data),
+    p.data.year,
+  ]
+    .join(' ')
+    .toLowerCase();
+---
+
+<Page
+  title="Publications"
+  description="Complete list of publications by Dr. Pavlo Radiuk: journal articles, conference papers, book chapters and preprints on explainable AI, medical imaging, UAV inspection and smart mobility."
+  lede={`${typeCount('journal')} journal articles, ${typeCount('conference')} conference papers, ${typeCount('chapter')} book chapters and ${typeCount('preprint')} public preprints, with full bibliographic details and BibTeX.`}
+>
+  <section class="section overview" aria-labelledby="output">
+    <div>
+      <h2 id="output" class="section-title">Output by year</h2>
+      <OutputChart pubs={pubs} />
+    </div>
+    <div>
+      <h2 id="metrics" class="section-title">Citation metrics</h2>
+      <MetricsTable />
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="list" data-pub-list>
+    <h2 id="list" class="section-title">All publications</h2>
+
+    <div class="filters sans" data-filters hidden>
+      <div class="group" role="group" aria-label="Filter by type">
+        <button type="button" data-filter="type" data-value="all" aria-pressed="true">All</button>
+        {TYPES.filter((t) => typeCount(t.id) > 0).map((t) => <button
+          type="button"
+          data-filter="type"
+          data-value={t.id}
+          aria-pressed="false"
+        >
+          {t.label} <span class="n">{typeCount(t.id)}</span>
+        </button>)}
+      </div>
+      <div class="group" role="group" aria-label="Filter by topic">
+        <button type="button" data-filter="topic" data-value="all" aria-pressed="true">
+          All topics
+        </button>
+        {TOPICS.filter((t) => topicCount(t) > 0).map((t) => <button
+          type="button"
+          data-filter="topic"
+          data-value={t}
+          aria-pressed="false"
+        >
+          {TOPIC_LABELS[t]} <span class="n">{topicCount(t)}</span>
+        </button>)}
+      </div>
+      <div class="search">
+        <label for="pub-search">Search titles, authors and venues</label>
+        <input id="pub-search" type="search" autocomplete="off" />
+      </div>
+      <p class="count" data-count aria-live="polite">{pubs.length} publications</p>
+    </div>
+
+    {years.map((year) => <section class="year" data-year aria-labelledby={`y${year}`}>
+      <h3 id={`y${year}`} class="year-title">
+        {year}
+      </h3>
+      <ol class="pubs">
+        {pubs
+          .filter((p) => p.data.year === year)
+          .map((entry) => <PubRow
+            entry={entry}
+            showThumbnail={false}
+            level={4}
+            attrs={{
+              'data-type': entry.data.pubtype,
+              'data-topics': entry.data.topics.join(' '),
+              'data-text': searchText(entry),
+            }}
+          >
+            <div class="extras sans">
+              {entry.data.doi && <DimensionsBadge doi={entry.data.doi} />}
+              <details class="bib">
+                <summary>BibTeX</summary>
+                <pre id={`bib-${entry.id}`}>{toBibtex(entry)}</pre>
+                <CopyButton target={`bib-${entry.id}`} label="Copy BibTeX" />
+              </details>
+            </div>
+          </PubRow>)}
+      </ol>
+    </section>)}
+
+    <p class="note">
+      † mentored junior researcher. Citation badges:
+      <a href="https://www.dimensions.ai">Dimensions</a>.
+    </p>
+  </section>
+
+  <section class="section" aria-labelledby="registered">
+    <h2 id="registered" class="section-title">Registered works</h2>
+    <p class="prose muted">Works registered in the State Register of Copyright of Ukraine.</p>
+    <ol class="entries registered">
+      {registered.map(({ data: w }) => <li class="entry">
+        <span class="entry-when">{w.year}</span>
+        <div class="entry-what">
+          <h3>{w.title}</h3>
+          <p>
+            {`${w.kind.charAt(0).toUpperCase() + w.kind.slice(1)}, certificate No. ${w.certificate}${w.coauthors.length ? `, with ${w.coauthors.join(', ')}` : ''}`}
+          </p>
+        </div>
+      </li>)}
+    </ol>
+  </section>
+</Page>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-pub-list]');
+  const filters = root?.querySelector<HTMLElement>('[data-filters]');
+  if (root && filters) {
+    filters.hidden = false;
+    const items = [...root.querySelectorAll<HTMLElement>('li[data-type]')];
+    const groups = [...root.querySelectorAll<HTMLElement>('[data-year]')];
+    const buttons = [...filters.querySelectorAll<HTMLButtonElement>('button[data-filter]')];
+    const search = filters.querySelector<HTMLInputElement>('#pub-search');
+    const count = filters.querySelector<HTMLElement>('[data-count]');
+
+    const params = new URLSearchParams(location.search);
+    const valid = (name: string, value: string | null) =>
+      value && buttons.some((b) => b.dataset.filter === name && b.dataset.value === value)
+        ? value
+        : 'all';
+    const state = {
+      type: valid('type', params.get('type')),
+      topic: valid('topic', params.get('topic')),
+      q: (params.get('q') ?? '').toLowerCase(),
+    };
+    if (search) search.value = params.get('q') ?? '';
+
+    const apply = () => {
+      let shown = 0;
+      for (const li of items) {
+        const ok =
+          (state.type === 'all' || li.dataset.type === state.type) &&
+          (state.topic === 'all' || (li.dataset.topics ?? '').split(' ').includes(state.topic)) &&
+          (!state.q || (li.dataset.text ?? '').includes(state.q));
+        li.hidden = !ok;
+        if (ok) shown++;
+      }
+      for (const group of groups)
+        group.hidden = !group.querySelector('li[data-type]:not([hidden])');
+      for (const b of buttons) {
+        const key = b.dataset.filter as 'type' | 'topic';
+        b.setAttribute('aria-pressed', String(state[key] === b.dataset.value));
+      }
+      if (count) count.textContent = `${shown} ${shown === 1 ? 'publication' : 'publications'}`;
+      const next = new URLSearchParams();
+      if (state.type !== 'all') next.set('type', state.type);
+      if (state.topic !== 'all') next.set('topic', state.topic);
+      if (state.q) next.set('q', state.q);
+      const query = next.toString();
+      history.replaceState(null, '', query ? `?${query}` : location.pathname);
+    };
+
+    for (const b of buttons) {
+      b.addEventListener('click', () => {
+        state[b.dataset.filter as 'type' | 'topic'] = b.dataset.value ?? 'all';
+        apply();
+      });
+    }
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    search?.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        state.q = search.value.trim().toLowerCase();
+        apply();
+      }, 200);
+    });
+
+    apply();
+  }
+</script>
+
+<style>
+  .overview {
+    display: grid;
+    gap: var(--space-6);
+  }
+
+  @media (min-width: 56rem) {
+    .overview {
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+    }
+  }
+
+  .filters {
+    display: grid;
+    gap: var(--space-3);
+    margin-block-end: var(--space-5);
+    font-size: var(--text-sm);
+  }
+
+  .group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .group button {
+    min-block-size: 2.25rem;
+    padding-inline: var(--space-3);
+    color: var(--color-text);
+    background: transparent;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+  }
+
+  .group button:hover {
+    border-color: var(--color-accent);
+  }
+
+  .group button[aria-pressed='true'] {
+    color: var(--color-bg);
+    background: var(--color-text);
+    border-color: var(--color-text);
+  }
+
+  .n {
+    color: inherit;
+    opacity: 0.7;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .search {
+    display: grid;
+    gap: var(--space-1);
+    max-inline-size: 28rem;
+  }
+
+  .search input {
+    min-block-size: 2.5rem;
+    padding-inline: var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+  }
+
+  .count {
+    color: var(--color-text-muted);
+  }
+
+  .year-title {
+    margin-block: var(--space-6) var(--space-1);
+    font-size: var(--text-lg);
+  }
+
+  .pubs {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .extras {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2) var(--space-4);
+    margin-block-start: var(--space-2);
+    font-size: var(--text-xs);
+  }
+
+  .bib summary {
+    cursor: pointer;
+    color: var(--color-accent-text);
+  }
+
+  .bib pre {
+    margin-block: var(--space-2);
+    padding: var(--space-3);
+    max-inline-size: 100%;
+    overflow-x: auto;
+    font-size: var(--text-xs);
+    background: var(--color-surface-2);
+    border-radius: var(--radius-md);
+  }
+
+  .note {
+    margin-block-start: var(--space-4);
+  }
+
+  .registered h3 {
+    font-size: var(--text-sm);
+  }
+</style>

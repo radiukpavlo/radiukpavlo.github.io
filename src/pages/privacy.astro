@@ -1,16 +1,15 @@
 ---
-import Base from '@/layouts/Base.astro';
+import Page from '@/layouts/Page.astro';
 import { site } from '@/config';
 
 const analyticsOn = Boolean(site.analytics.goatcounter);
 ---
 
-<Base
+<Page
   title="Privacy"
   description="How this academic website handles visitor data: no cookies, self-hosted assets, cookieless statistics and lazily loaded citation badges."
 >
-  <div class="prose">
-    <h1>Privacy</h1>
+  <div class="prose policy">
     <p>
       This is the personal academic website of Dr. Pavlo Radiuk. It does not use cookies, has no
       sign-in, and serves its fonts, icons and maps from this site rather than from third parties.
@@ -58,18 +57,13 @@ const analyticsOn = Boolean(site.analytics.goatcounter);
 
     <p class="updated">Last updated: 19 October 2026.</p>
   </div>
-</Base>
+</Page>
 
 <style>
-  .prose {
-    max-width: var(--measure);
-    margin-inline: auto;
-    padding: var(--space-8) var(--gutter);
+  .policy {
     display: grid;
     gap: var(--space-4);
-  }
-  h1 {
-    font-size: var(--text-3xl);
+    padding-block-end: var(--space-8);
   }
   h2 {
     margin-top: var(--space-4);

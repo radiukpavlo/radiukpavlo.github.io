@@ -56,6 +56,29 @@ export function displayAuthors(pub: Publication['data']): DisplayAuthor[] {
   }));
 }
 
+export const TOPIC_LABELS: Record<string, string> = {
+  xai: 'Explainable AI',
+  medical: 'Medical AI',
+  'uav-energy': 'Energy and UAV inspection',
+  mobility: 'Smart mobility',
+  'dl-methods': 'Deep-learning methods',
+  language: 'Language and knowledge',
+  'information-systems': 'Information systems',
+};
+
+/** [2024, 2025, 2026] → '2024–2026'; [2024, 2026] → '2024, 2026'. */
+export function formatYears(years: number[]): string {
+  const ys = [...new Set(years)].sort((a, b) => a - b);
+  const runs: string[] = [];
+  for (let i = 0; i < ys.length;) {
+    let j = i;
+    while (j + 1 < ys.length && ys[j + 1] === (ys[j] ?? 0) + 1) j++;
+    runs.push(j > i ? `${ys[i]}–${ys[j]}` : String(ys[i]));
+    i = j + 1;
+  }
+  return runs.join(', ');
+}
+
 const TYPE_LABEL = {
   journal: 'Journal',
   conference: 'Conference',

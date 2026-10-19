@@ -1,0 +1,105 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import EuFunding from '@/components/EuFunding.astro';
+import { formatRange } from '@/lib/format';
+
+// Ongoing projects first, then most recent start.
+const projects = (await getCollection('projects')).sort(
+  (a, b) =>
+    Number(b.data.status === 'ongoing') - Number(a.data.status === 'ongoing') ||
+    b.data.start.localeCompare(a.data.start),
+);
+---
+
+<Page
+  title="Projects"
+  description="Funded research projects of Dr. Pavlo Radiuk: the Horizon Europe project U_CAN and nationally funded research on UAV inspection of green-energy infrastructure."
+  lede="Funded research projects in which I take part."
+>
+  <ul class="projects plain-list">
+    {projects.map(({ data: p }) => <li class="project">
+      <p class="meta sans">
+        {formatRange(p.start, p.end)} · {p.status === 'ongoing' ? 'Ongoing' : 'Completed'}
+      </p>
+      <h2>
+        {p.url ? <a href={p.url}>{p.title}</a> : p.title}
+        {p.acronym && <span class="acronym"> ({p.acronym})</span>}
+      </h2>
+      <dl class="facts sans">
+        <div>
+          <dt>Funder</dt>
+          <dd>{p.funder} — {p.programme}</dd>
+        </div>
+        {p.grantId && <div>
+          <dt>{p.euFunded ? 'Grant agreement' : 'State registration'}</dt>
+          <dd>{p.grantId}</dd>
+        </div>}
+        <div>
+          <dt>Role</dt>
+          <dd>{p.role}</dd>
+        </div>
+      </dl>
+      <p class="summary prose">{p.summary}</p>
+      {p.euFunded && p.disclaimer && <EuFunding disclaimer={p.disclaimer} />}
+    </li>)}
+  </ul>
+</Page>
+
+<style>
+  .projects {
+    padding-block-end: var(--space-8);
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .project {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-6);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .meta {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  h2 {
+    font-size: var(--text-xl);
+  }
+
+  h2 a {
+    color: var(--color-text);
+  }
+
+  .acronym {
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-1);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .facts div {
+    display: grid;
+    gap: 0 var(--space-4);
+  }
+
+  @media (min-width: 40rem) {
+    .facts div {
+      grid-template-columns: 9rem minmax(0, 1fr);
+    }
+  }
+
+  dt {
+    color: var(--color-text-muted);
+  }
+
+  dd {
+    margin: 0;
+  }
+</style>

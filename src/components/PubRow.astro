@@ -13,13 +13,18 @@ interface Props {
   entry: Publication;
   showThumbnail?: boolean;
   eager?: boolean;
+  /** Extra attributes for the list item (e.g. data-* used by filters). */
+  attrs?: Record<string, string>;
+  /** Heading level for the title (3 under a section, 4 under a year group). */
+  level?: 3 | 4;
 }
 
 const thumbs = import.meta.glob<{ default: ImageMetadata }>('/src/assets/thumbnails/*', {
   eager: true,
 });
 
-const { entry, showThumbnail = true, eager = false } = Astro.props;
+const { entry, showThumbnail = true, eager = false, attrs = {}, level = 3 } = Astro.props;
+const Heading = `h${level}` as 'h3' | 'h4';
 const pub = entry.data;
 const thumb =
   showThumbnail && pub.thumbnail
@@ -37,7 +42,7 @@ const links = [
 ].filter(Boolean) as { label: string; href: string }[];
 ---
 
-<li class:list={['pub-row', { 'has-thumb': thumb }]}>
+<li class:list={['pub-row', { 'has-thumb': thumb }]} {...attrs}>
   {thumb && <figure class="thumb">
     <Image
       src={thumb}
@@ -51,10 +56,10 @@ const links = [
     </figcaption>
   </figure>}
   <div class="text">
-    <h3 class="title">
+    <Heading class="title">
       {href ? <a href={href}>{pub.title}</a> : pub.title}
       {pub.langid && <span class="lang"> (in Ukrainian)</span>}
-    </h3>
+    </Heading>
     <AuthorList pub={pub} />
     <p class="venue"><cite>{name}</cite>{rest}, {pub.year}.</p>
     {links.length > 0 && <p class="links sans">
@@ -65,6 +70,7 @@ const links = [
         </>
       ))}
     </p>}
+    <slot />
   </div>
 </li>
 

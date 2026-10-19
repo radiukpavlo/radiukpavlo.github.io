@@ -14,7 +14,7 @@ main:
     - title: Medical AI partner
       description: >-
         Explainable deep learning for ECG, cardiac MRI and chest radiographs. Explanations for ECG
-        and cardiac MRI have been evaluated against clinical expert judgement, with Cohen's kappa
+        and cardiac MRI have been evaluated against clinical expert judgement, with Cohen’s kappa
         of 0.89 and 0.80 respectively.
     - title: Energy & UAV inspection
       description: >-

@@ -1,0 +1,24 @@
+---
+/** Inner-page layout: Base plus a consistent page header (title and optional lede). */
+import Base from '@/layouts/Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  lede?: string;
+  jsonLd?: Record<string, unknown>[];
+}
+
+const { title, description, lede, jsonLd } = Astro.props;
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <div class="container">
+    <header class="page-header">
+      <h1>{title}</h1>
+      {lede && <p class="lede">{lede}</p>}
+      <slot name="header" />
+    </header>
+    <slot />
+  </div>
+</Base>

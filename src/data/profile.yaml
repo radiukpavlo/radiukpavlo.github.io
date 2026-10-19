@@ -59,7 +59,7 @@ main:
       and the feature space a domain expert already reasons with, so that an explanation becomes a
       change of basis rather than a heatmap. He has extended this with Lie-group equivariance,
       rough-set production rules and conflict-aware auditing, and validated it against clinical
-      expert judgement, with Cohen's kappa of 0.89 for ECG and 0.80 for cardiac MRI. The same
+      expert judgement, with Cohen’s kappa of 0.89 for ECG and 0.80 for cardiac MRI. The same
       framework carries into UAV-based inspection of wind turbines and photovoltaic plants,
       precision agriculture and reinforcement-learning traffic control.
 

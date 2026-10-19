@@ -39,6 +39,11 @@
     font: inherit;
     color: inherit;
   }
+
+  /* Keep the hidden attribute authoritative over component display values. */
+  [hidden]:not([hidden='until-found']) {
+    display: none !important;
+  }
 }
 
 @layer base {
@@ -235,5 +240,116 @@
   ::view-transition-new(root) {
     animation-duration: 220ms;
     animation-timing-function: var(--ease);
+  }
+}
+
+/* Content patterns shared by inner pages. */
+@layer layout {
+  .page-header {
+    padding-block: var(--space-8) var(--space-5);
+  }
+
+  .page-header h1 {
+    font-size: var(--text-3xl);
+  }
+
+  .page-header .lede {
+    max-width: var(--measure);
+    margin-block-start: var(--space-3);
+    color: var(--color-text-muted);
+    font-size: var(--text-lg);
+  }
+
+  .stack > * + * {
+    margin-block-start: var(--space-4);
+  }
+
+  .plain-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  /* Dated entries: CV positions, service roles, talks. */
+  .entries {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--color-rule);
+  }
+
+  .entry {
+    display: grid;
+    gap: var(--space-1) var(--space-5);
+    padding-block: var(--space-4);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  @media (min-width: 40rem) {
+    .entry {
+      grid-template-columns: 10rem minmax(0, 1fr);
+    }
+  }
+
+  .entry-when {
+    font-family: var(--font-sans);
+    font-size: var(--text-sm);
+    font-variant-numeric: tabular-nums;
+    color: var(--color-text-muted);
+  }
+
+  .entry-what h3 {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .entry-what p {
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .entry-what p + p {
+    margin-block-start: var(--space-1);
+  }
+
+  .subhead {
+    margin-block: var(--space-6) var(--space-3);
+    font-size: var(--text-lg);
+  }
+
+  .note {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+  }
+}
+
+@media print {
+  .site-header,
+  .site-footer,
+  .skip-link,
+  .no-print {
+    display: none !important;
+  }
+
+  body {
+    font-size: 10.5pt;
+    background: #fff;
+    color: #000;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .section,
+  .page-header {
+    padding-block: 0.6rem;
+  }
+
+  .entry {
+    break-inside: avoid;
   }
 }

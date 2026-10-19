@@ -9,12 +9,12 @@ interface Props {
 
 const { pins, title } = Astro.props;
 const map = buildEuropeMap(pins);
-const id = `map-${Math.random().toString(36).slice(2, 8)}`;
+const titleId = 'europe-map-title';
 ---
 
 <figure class="europe-map">
-  <svg viewBox={`0 0 ${map.width} ${map.height}`} role="img" aria-labelledby={id}>
-    <title id={id}>{title}</title>
+  <svg viewBox={`0 0 ${map.width} ${map.height}`} role="img" aria-labelledby={titleId}>
+    <title id={titleId}>{title}</title>
     <path class="graticule" d={map.graticule}></path>
     <path class="land" d={map.land}></path>
     <path class="ukraine" d={map.ukraine}></path>
@@ -27,50 +27,45 @@ const id = `map-${Math.random().toString(36).slice(2, 8)}`;
       <circle r={p.home ? 7 : 5.5} />
     </g>)}
   </svg>
-  <figcaption class="sr-only">
-    <ul>
-      {pins.map((p) => <li>{p.name}</li>)}
-    </ul>
-  </figcaption>
 </figure>
 
 <style>
   .europe-map svg {
     display: block;
-    width: 100%;
-    height: auto;
+    inline-size: 100%;
+    max-inline-size: 44rem;
+    block-size: auto;
+    background: var(--color-bg);
   }
+
   .graticule {
     fill: none;
     stroke: var(--color-rule);
     stroke-width: 0.5;
   }
+
   .land {
-    fill: var(--color-surface-2);
+    fill: var(--color-map-land);
   }
+
   .ukraine {
     fill: var(--color-accent-soft);
   }
+
   .borders {
     fill: none;
     stroke: var(--color-bg);
     stroke-width: 0.8;
     stroke-linejoin: round;
   }
+
   .pin circle {
     fill: var(--color-accent);
     stroke: var(--color-bg);
     stroke-width: 2;
   }
+
   .pin.home circle {
     fill: var(--color-text);
-  }
-  .sr-only {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip-path: inset(50%);
-    white-space: nowrap;
   }
 </style>

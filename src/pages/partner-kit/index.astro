@@ -1,0 +1,201 @@
+---
+import { getCollection } from 'astro:content';
+import Page from '@/layouts/Page.astro';
+import CopyButton from '@/components/CopyButton.astro';
+import EmailLink from '@/components/EmailLink.astro';
+import { getPartner, getProfile, profileLinks } from '@/lib/profile';
+
+const profile = await getProfile();
+const partner = await getPartner();
+const links = profileLinks(profile.ids);
+const ucan = (await getCollection('projects')).find((p) => p.data.acronym === 'U_CAN')?.data;
+
+const words = (s: string) => s.split(/\s+/).filter(Boolean).length;
+const paragraphs = (s: string) => s.split(/\n+/).filter(Boolean);
+const BIOS = [
+  { id: 'short', label: 'Short biography', text: profile.bios.short },
+  { id: 'medium', label: 'Medium biography', text: profile.bios.medium },
+  { id: 'long', label: 'Long biography', text: profile.bios.long },
+];
+---
+
+<Page
+  title="Partner kit"
+  description="Information for coordinators of Horizon Europe, MSCA and EuroHPC consortia: capability statement, roles, organisation details, biographies and contact for Dr. Pavlo Radiuk."
+  lede="Information for coordinators building Horizon Europe, MSCA and EuroHPC consortia. Everything here may be copied into proposals."
+>
+  <section class="section" aria-labelledby="capability">
+    <h2 id="capability" class="section-title">Capability statement</h2>
+    <p id="statement" class="prose">{partner.statement}</p>
+    <p class="actions"><CopyButton target="statement" label="Copy statement" /></p>
+  </section>
+
+  <section class="section" aria-labelledby="roles">
+    <h2 id="roles" class="section-title">Roles I can take</h2>
+    <dl class="roles">
+      {partner.roles.map((r) => <div>
+        <dt>{r.title}</dt>
+        <dd>{r.description}</dd>
+      </div>)}
+    </dl>
+  </section>
+
+  <section class="section" aria-labelledby="organisation">
+    <h2 id="organisation" class="section-title">Organisation</h2>
+    <dl class="facts sans">
+      <div>
+        <dt>Institution</dt>
+        <dd><a href={profile.universityUrl}>{partner.picHolder}</a></dd>
+      </div>
+      {partner.pic && <div>
+        <dt>
+          <abbr title="Participant Identification Code">PIC</abbr>
+        </dt>
+        <dd><span id="pic">{partner.pic}</span> <CopyButton target="pic" label="Copy PIC" /></dd>
+      </div>}
+      <div>
+        <dt>Unit</dt>
+        <dd>{profile.department}, {profile.faculty}</dd>
+      </div>
+      <div>
+        <dt>Location</dt>
+        <dd>{profile.city}, {profile.country}</dd>
+      </div>
+      {ucan && <div>
+        <dt>EU project experience</dt>
+        <dd>
+          {ucan.programme}: {ucan.title} ({ucan.acronym}, grant agreement {ucan.grantId}),{' '}
+          <a href="/projects/">participant</a>
+        </dd>
+      </div>}
+    </dl>
+  </section>
+
+  <section class="section" aria-labelledby="bios">
+    <h2 id="bios" class="section-title">Biographies</h2>
+    {BIOS.map((b) => <article class="bio">
+      <div class="bio-head">
+        <h3>{b.label}</h3>
+        <span class="note">{words(b.text)} words</span>
+        <CopyButton target={`bio-${b.id}`} label="Copy" />
+      </div>
+      <div id={`bio-${b.id}`} class="prose stack">
+        {paragraphs(b.text).map((p) => <p>{p}</p>)}
+      </div>
+    </article>)}
+  </section>
+
+  <section class="section last" aria-labelledby="contact-title" id="contact">
+    <h2 id="contact-title" class="section-title">Contact</h2>
+    <p class="contact sans">
+      {profile.emails.map((e) => (
+        <EmailLink address={e.address} />
+      ))}
+    </p>
+    <p class="profiles sans">
+      {links.map((l, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <a href={l.href}>{l.label}</a>
+        </>
+      ))}
+    </p>
+  </section>
+</Page>
+
+<style>
+  .actions {
+    margin-block-start: var(--space-3);
+  }
+
+  .roles {
+    display: grid;
+    gap: var(--space-4);
+    margin: 0;
+  }
+
+  .roles div {
+    display: grid;
+    gap: var(--space-1) var(--space-5);
+  }
+
+  @media (min-width: 40rem) {
+    .roles div {
+      grid-template-columns: 14rem minmax(0, 1fr);
+    }
+  }
+
+  .roles dt {
+    font-weight: 600;
+  }
+
+  .roles dd,
+  .facts dd {
+    margin: 0;
+  }
+
+  .roles dd {
+    color: var(--color-text-muted);
+  }
+
+  .facts {
+    display: grid;
+    gap: var(--space-2);
+    margin: 0;
+    font-size: var(--text-sm);
+  }
+
+  .facts div {
+    display: grid;
+    gap: 0 var(--space-5);
+  }
+
+  @media (min-width: 40rem) {
+    .facts div {
+      grid-template-columns: 12rem minmax(0, 1fr);
+    }
+  }
+
+  .facts dt {
+    color: var(--color-text-muted);
+  }
+
+  #pic {
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    margin-inline-end: var(--space-2);
+  }
+
+  .bio + .bio {
+    margin-block-start: var(--space-6);
+  }
+
+  .bio-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: var(--space-2) var(--space-4);
+    margin-block-end: var(--space-3);
+  }
+
+  .bio-head h3 {
+    font-size: var(--text-lg);
+  }
+
+  .contact,
+  .profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
+    font-size: var(--text-sm);
+  }
+
+  .profiles {
+    margin-block-start: var(--space-3);
+    color: var(--color-text-muted);
+  }
+
+  .last {
+    padding-block-end: var(--space-8);
+  }
+</style>
