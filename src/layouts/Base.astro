@@ -1,0 +1,40 @@
+---
+import '@fontsource-variable/fraunces/opsz.css';
+import '@fontsource-variable/inter/opsz.css';
+import '@fontsource-variable/jetbrains-mono';
+import '@/styles/tokens.css';
+import '@/styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Dr. Pavlo Radiuk — explainable AI for medical imaging, UAV inspection and smart mobility.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <meta name="color-scheme" content="light dark" />
+    <script is:inline>
+      (() => {
+        try {
+          const t = localStorage.getItem('theme');
+          if (t === 'light' || t === 'dark') document.documentElement.dataset.theme = t;
+        } catch {}
+      })();
+    </script>
+  </head>
+  <body>
+    <slot />
+  </body>
+</html>

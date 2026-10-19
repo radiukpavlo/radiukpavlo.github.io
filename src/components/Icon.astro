@@ -1,0 +1,53 @@
+---
+/**
+ * Inline SVG icon from a locally installed Iconify set, rendered at build time.
+ * Usage: <Icon name="academicons:orcid" label="ORCID" />. Decorative unless `label` is set.
+ */
+import { getIconData, iconToHTML, iconToSVG, replaceIDs } from '@iconify/utils';
+import type { IconifyJSON } from '@iconify/types';
+import { icons as academicons } from '@iconify-json/academicons';
+import { icons as lucide } from '@iconify-json/lucide';
+import { icons as simpleIcons } from '@iconify-json/simple-icons';
+
+const sets: Record<string, IconifyJSON> = {
+  academicons,
+  lucide,
+  'simple-icons': simpleIcons,
+};
+
+interface Props {
+  name: string;
+  size?: string;
+  label?: string;
+  class?: string;
+}
+
+const { name, size = '1em', label, class: className } = Astro.props;
+const [prefix, iconName] = name.split(':');
+const set = prefix ? sets[prefix] : undefined;
+const data = set && iconName ? getIconData(set, iconName) : null;
+if (!data) throw new Error(`Unknown icon "${name}"`);
+
+const { attributes, body } = iconToSVG(data, { height: size });
+const attrs: Record<string, string> = {
+  ...attributes,
+  class: ['icon', className].filter(Boolean).join(' '),
+};
+if (label) {
+  attrs.role = 'img';
+  attrs['aria-label'] = label;
+} else {
+  attrs['aria-hidden'] = 'true';
+}
+const svg = iconToHTML(replaceIDs(body), attrs);
+---
+
+<Fragment set:html={svg} />
+
+<style is:global>
+  .icon {
+    display: inline-block;
+    flex: none;
+    vertical-align: -0.125em;
+  }
+</style>
