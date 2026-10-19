@@ -16,6 +16,18 @@ npm run format       # format with Prettier
 
 Content lives in `src/data/` (BibTeX bibliography and YAML) and `src/content/news/` (Markdown). Every file is validated at build time, so an invalid entry fails the build. The CV PDF is rendered from the built `/cv/` page by `scripts/cv-pdf.mjs` in CI.
 
+## Maintenance tools
+
+```bash
+npm run fonts        # rebuild public/fonts from Source Serif 4 / Source Sans 3 (needs uv)
+npm run assets       # regenerate share images (public/og) and favicons after adding a page
+npm run review -- /  # screenshots and structural checks for the given paths (after a build)
+npm run weight -- /  # transfer weight per page, gzip for text resources
+npm run lighthouse -- / /publications/   # Lighthouse, mobile; reports in ./lighthouse
+```
+
+The web fonts are instanced and subsetted from the Fontsource files (SIL Open Font License 1.1). Because the original fonts reserve the name "Source", the modified files are named Radiuk Serif and Radiuk Sans; the licence texts are in `public/fonts/`.
+
 ## Deployment
 
 `.github/workflows/deploy.yml` checks, builds and — once the repository is public — deploys to GitHub Pages on every push to `main`. `.github/workflows/links.yml` checks links weekly and reports broken ones in the job summary.

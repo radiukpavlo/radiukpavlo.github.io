@@ -69,7 +69,11 @@ const hasMentees = pubs.some(
     </p>
   </section>
 
-  {areas.map((area) => <section class="section" aria-labelledby={area.id}>
+  {areas.map((area) => <section
+    class="section defer"
+    aria-labelledby={area.id}
+    style="--defer-size: 900px"
+  >
     <h2 id={area.id} class="section-title">
       {area.title}
     </h2>
@@ -87,7 +91,7 @@ const hasMentees = pubs.some(
     </p>
   </section>)}
 
-  <section class="section" aria-labelledby="software">
+  <section class="section defer" aria-labelledby="software" style="--defer-size: 700px">
     <h2 id="software" class="section-title">Data and software</h2>
     <ul class="entries">
       {software.map((p) => <li class="entry">

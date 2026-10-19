@@ -62,6 +62,8 @@ Navigation: sticky top bar with Research, Publications, Projects, Talks & Servic
 
 - Lighthouse on mobile: ≥ 95 in Performance, Accessibility, Best Practices and SEO for `/`, `/publications/` and `/cv/`.
 - JavaScript only as small islands: theme toggle, publication filters and search, BibTeX copy, email assembly, lazy Dimensions loader, GoatCounter. No UI framework.
+- Fonts: one serif and one sans file per script subset (about 75 KB on a typical page), preloaded; no `font-size-adjust` (it doubled style-recalculation time in Chrome; layout shift stays at 0 through preloading). Stylesheets are inlined.
+- Below-the-fold blocks use `content-visibility: auto` with `contain-intrinsic-size`; keyboard reachability across them is verified.
 - Images through `astro:assets` (AVIF/WebP, responsive `srcset`, explicit dimensions, lazy below the fold). Fonts self-hosted with `font-display: swap`; preload only the two hero fonts.
 - Europe map rendered at build time; simplify its geometry if it pushes page weight over budget.
 - Page weight budget for `/`: ≤ 350 KB transferred on first load, excluding lazily loaded badges.

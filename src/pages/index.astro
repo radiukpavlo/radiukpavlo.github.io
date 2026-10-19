@@ -104,7 +104,7 @@ const articles = selected.map((p) => ({
     {hasMentees && <p class="legend sans">† mentored junior researcher</p>}
   </section>
 
-  <section class="container section" aria-labelledby="news-title">
+  <section class="container section defer" aria-labelledby="news-title" style="--defer-size: 320px">
     <h2 id="news-title" class="section-title">News</h2>
     <ol class="news">
       {news.map((n) => <li>
@@ -116,7 +116,11 @@ const articles = selected.map((p) => ({
     </ol>
   </section>
 
-  <section class="container section collab" aria-labelledby="collab-title">
+  <section
+    class="container section collab defer"
+    aria-labelledby="collab-title"
+    style="--defer-size: 260px"
+  >
     <h2 id="collab-title" class="section-title">Collaboration</h2>
     <p class="prose">
       I welcome partners for Horizon Europe, MSCA and EuroHPC proposals in explainable AI, medical

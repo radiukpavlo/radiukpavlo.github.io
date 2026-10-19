@@ -30,3 +30,7 @@ test-results/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Local reports from npm run review / lighthouse
+/review/
+/lighthouse/

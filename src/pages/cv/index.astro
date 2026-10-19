@@ -68,7 +68,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="cv-industry">
+  <section class="section defer" aria-labelledby="cv-industry" style="--defer-size: 600px">
     <h2 id="cv-industry" class="section-title">Industry</h2>
     <ol class="entries">
       {industry.map(({ data: p }) => <li class="entry">
@@ -82,7 +82,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="cv-education">
+  <section class="section defer" aria-labelledby="cv-education" style="--defer-size: 500px">
     <h2 id="cv-education" class="section-title">Education</h2>
     <ol class="entries">
       {education.map(({ data: e }) => <li class="entry">
@@ -105,7 +105,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="cv-projects">
+  <section class="section defer" aria-labelledby="cv-projects" style="--defer-size: 300px">
     <h2 id="cv-projects" class="section-title">Research projects</h2>
     <ol class="entries">
       {projects.map(({ data: p }) => <li class="entry">
@@ -123,7 +123,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="cv-pubs">
+  <section class="section defer" aria-labelledby="cv-pubs" style="--defer-size: 1200px">
     <h2 id="cv-pubs" class="section-title">Publications</h2>
     <p class="prose">
       {count('journal')} journal articles, {count('conference')} conference papers and
@@ -138,7 +138,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ol>
   </section>
 
-  <section class="section" aria-labelledby="cv-awards">
+  <section class="section defer" aria-labelledby="cv-awards" style="--defer-size: 250px">
     <h2 id="cv-awards" class="section-title">Awards</h2>
     <ul class="entries">
       {awards.map(({ data: a }) => <li class="entry">
@@ -151,7 +151,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </ul>
   </section>
 
-  <section class="section" aria-labelledby="cv-service">
+  <section class="section defer" aria-labelledby="cv-service" style="--defer-size: 600px">
     <h2 id="cv-service" class="section-title">Service</h2>
     <dl class="service sans">
       <div>
@@ -189,7 +189,7 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     </dl>
   </section>
 
-  <section class="section last" aria-labelledby="cv-teaching">
+  <section class="section last defer" aria-labelledby="cv-teaching" style="--defer-size: 250px">
     <h2 id="cv-teaching" class="section-title">Teaching</h2>
     <p class="prose">
       {teaching

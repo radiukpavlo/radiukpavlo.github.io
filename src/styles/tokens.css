@@ -88,8 +88,8 @@
   accent-color: var(--color-accent-text);
 
   /* Type */
-  --font-serif: 'Source Serif 4 Variable', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
-  --font-sans: 'Source Sans 3 Variable', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-serif: 'Radiuk Serif', 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+  --font-sans: 'Radiuk Sans', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'JetBrains Mono Variable', ui-monospace, 'Cascadia Code', Consolas, monospace;
 
   --text-xs: 0.8125rem;

@@ -123,7 +123,7 @@ const searchText = (p: (typeof pubs)[number]) =>
     </p>
   </section>
 
-  <section class="section" aria-labelledby="registered">
+  <section class="section defer" aria-labelledby="registered" style="--defer-size: 1100px">
     <h2 id="registered" class="section-title">Registered works</h2>
     <p class="prose muted">Works registered in the State Register of Copyright of Ukraine.</p>
     <ol class="entries registered">
@@ -299,6 +299,9 @@ const searchText = (p: (typeof pubs)[number]) =>
   }
 
   .bib summary {
+    display: inline-flex;
+    align-items: center;
+    min-block-size: 1.5rem;
     cursor: pointer;
     color: var(--color-accent-text);
   }

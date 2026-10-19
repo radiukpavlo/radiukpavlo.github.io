@@ -63,7 +63,6 @@
     font-size: var(--text-base);
     line-height: var(--leading-body);
     font-optical-sizing: auto;
-    font-size-adjust: from-font;
     -webkit-font-smoothing: antialiased;
   }
 
@@ -74,13 +73,17 @@
     font-family: var(--font-serif);
     font-weight: 600;
     line-height: var(--leading-tight);
-    font-optical-sizing: auto;
+  }
+
+  /* Balanced wrapping only for page and section headings: on long lists it is a layout cost. */
+  h1,
+  h2 {
     text-wrap: balance;
   }
 
-  p,
-  li,
-  dd {
+  /* Only the intro paragraphs get pretty wrapping; site-wide it is a heavy layout cost. */
+  .lede,
+  .bio {
     text-wrap: pretty;
   }
 
@@ -164,6 +167,17 @@
 }
 
 @layer utilities {
+  /*
+   * Below-the-fold blocks skip rendering until they approach the viewport. Each use sets
+   * --defer-size, an estimated height, so the scrollbar does not jump.
+   */
+  @supports (content-visibility: auto) {
+    .defer {
+      content-visibility: auto;
+      contain-intrinsic-size: auto none auto var(--defer-size, 600px);
+    }
+  }
+
   /* Hidden visually, kept in the accessibility tree; focusable content opts out. */
   .visually-hidden:where(:not(:focus-within, :active)) {
     position: absolute !important;

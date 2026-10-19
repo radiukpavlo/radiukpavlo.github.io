@@ -61,29 +61,30 @@ const lastYear = (ys: number[]) => Math.max(...ys);
 
   <section class="section" aria-labelledby="contributions">
     <h2 id="contributions" class="section-title">Contributions</h2>
-    {years.map((year) => (
-      <>
-        <h3 class="subhead">{year}</h3>
-        <ol class="entries">
-          {talks
-            .filter((t) => t.data.date.startsWith(year))
-            .map(({ data: t }) => {
-              const pub = t.publications[0] ? pubById.get(t.publications[0]) : undefined;
-              const href = pub ? primaryUrl(pub.data) : undefined;
-              return <li class="entry">
-                <span class="entry-when">{formatYearMonth(t.date)}</span>
-                <div class="entry-what">
-                  <h4>{t.title && href ? <a href={href}>{t.title}</a> : (t.title ?? t.event)}</h4>
-                  <p>{t.short} · {t.event} · {t.city}, {t.country}</p>
-                </div>
-              </li>;
-            })}
-        </ol>
-      </>
-    ))}
+    {years.map((year) => <div
+      class="defer"
+      style={`--defer-size: ${talks.filter((t) => t.data.date.startsWith(year)).length * 90 + 80}px`}
+    >
+      <h3 class="subhead">{year}</h3>
+      <ol class="entries">
+        {talks
+          .filter((t) => t.data.date.startsWith(year))
+          .map(({ data: t }) => {
+            const pub = t.publications[0] ? pubById.get(t.publications[0]) : undefined;
+            const href = pub ? primaryUrl(pub.data) : undefined;
+            return <li class="entry">
+              <span class="entry-when">{formatYearMonth(t.date)}</span>
+              <div class="entry-what">
+                <h4>{t.title && href ? <a href={href}>{t.title}</a> : (t.title ?? t.event)}</h4>
+                <p>{t.short} · {t.event} · {t.city}, {t.country}</p>
+              </div>
+            </li>;
+          })}
+      </ol>
+    </div>)}
   </section>
 
-  <section class="section" aria-labelledby="service">
+  <section class="section defer" aria-labelledby="service" style="--defer-size: 2400px">
     <h2 id="service" class="section-title">Service</h2>
     <p class="prose">
       I have completed {metrics.reviews} peer reviews for journals and conferences.

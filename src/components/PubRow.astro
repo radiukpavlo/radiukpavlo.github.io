@@ -151,4 +151,13 @@ const links = [
     font-size: var(--text-sm);
     color: var(--color-text-muted);
   }
+
+  /* WCAG 2.5.8: at least 24 × 24 px per link target. */
+  .links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 1.5rem;
+    min-inline-size: 1.5rem;
+  }
 </style>
