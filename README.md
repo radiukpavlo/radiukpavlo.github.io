@@ -14,7 +14,15 @@ npm run build        # static build into dist/
 npm run format       # format with Prettier
 ```
 
-Content lives in `src/data/` (BibTeX bibliography and YAML) and `src/content/news/` (Markdown). Every file is validated at build time, so an invalid entry fails the build. The CV PDF is rendered from the built `/cv/` page by `scripts/cv-pdf.mjs` in CI.
+Content lives in `src/data/` (BibTeX bibliography and YAML) and `src/content/news/` (Markdown). Every file is validated at build time, so an invalid entry fails the build.
+
+## PDF CVs
+
+Two LaTeX CVs are generated from the same data: a full CV (`public/cv/Pavlo-Radiuk-CV.pdf`) and a one-page CV (`public/cv/Pavlo-Radiuk-CV-one-page.pdf`). `src/lib/cv-tex.ts` writes the LaTeX sources, `latex/radiuk-cv.sty` sets them in the site's typefaces and colours, and `scripts/cv-latex.mjs` compiles them with LuaLaTeX and fails if the one-page CV runs over one page. After changing CV data, rebuild and commit the PDFs:
+
+```bash
+npm run cv           # needs MiKTeX or TeX Live with LuaLaTeX, Source Serif 4, Source Sans 3, fontawesome7, academicons
+```
 
 ## Maintenance tools
 

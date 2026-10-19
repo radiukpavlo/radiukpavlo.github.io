@@ -28,8 +28,20 @@ export interface ProfileLink {
   href: string;
 }
 
+export async function getCv() {
+  const entry = await getEntry('cv', 'main');
+  if (!entry) throw new Error('src/data/cv.yaml must define "main"');
+  return entry.data;
+}
+
 export function profileLinks(ids: Ids): ProfileLink[] {
   return [
+    {
+      key: 'department',
+      label: 'Department profile',
+      icon: 'lucide:landmark',
+      href: `https://kn.khmnu.edu.ua/${ids.department}/`,
+    },
     {
       key: 'scholar',
       label: 'Google Scholar',

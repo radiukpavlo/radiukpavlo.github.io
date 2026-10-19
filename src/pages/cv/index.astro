@@ -31,7 +31,9 @@ const organizing = service.filter((s) => s.kind === 'organizing');
 const dissertation = service.filter((s) => s.kind === 'dissertation');
 const reviewing = service.filter((s) => s.kind === 'conference-reviewer');
 
-const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
+// LaTeX PDFs built from the same data by `npm run cv` (scripts/cv-latex.mjs).
+const PDF_FULL = '/cv/Pavlo-Radiuk-CV.pdf';
+const PDF_ONE_PAGE = '/cv/Pavlo-Radiuk-CV-one-page.pdf';
 ---
 
 <Page
@@ -47,11 +49,15 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
       {profile.emails.map((e) => (
         <EmailLink address={e.address} />
       ))}
-      {links.slice(0, 4).map((l) => <a href={l.href} class="no-print-url">
+      {links.slice(0, 5).map((l) => <a href={l.href} class="no-print-url">
         {l.label}
       </a>)}
     </p>
-    <p class="no-print"><a class="pdf" href={PDF}>Download PDF</a></p>
+    <p class="no-print downloads">
+      <a class="pdf" href={PDF_FULL}>Full CV (PDF)</a>
+      <span aria-hidden="true">·</span>
+      <a href={PDF_ONE_PAGE}>One-page CV (PDF)</a>
+    </p>
   </div>
 
   <section class="section" aria-labelledby="cv-positions">
@@ -216,6 +222,12 @@ const PDF = '/cv/Pavlo-Radiuk-CV.pdf';
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-1) var(--space-4);
+  }
+
+  .downloads {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-3);
   }
 
   .pdf {

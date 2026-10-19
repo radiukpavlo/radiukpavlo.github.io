@@ -1,0 +1,190 @@
+% radiuk-cv.sty: layout of the PDF CVs, matched to radiukpavlo.github.io.
+%
+% Typefaces as on the website: Source Serif 4 for text and headings, Source Sans 3 for dates,
+% labels and links (the unmodified Adobe fonts; the site serves renamed subsets of the same
+% designs). Colours are the site's light-theme tokens from src/styles/tokens.css.
+%
+% Option `compact` tightens sizes and spacing for the one-page CV.
+% The documents themselves are generated from site data by src/lib/cv-tex.ts.
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{radiuk-cv}[2026/10/19 CV layout for radiukpavlo.github.io]
+
+\newif\ifcv@compact
+\DeclareOption{compact}{\cv@compacttrue}
+\ProcessOptions\relax
+
+\RequirePackage[a4paper, left=17mm, right=17mm, top=14mm, bottom=19mm, footskip=8mm]{geometry}
+\RequirePackage{fontspec}
+\RequirePackage[dvipsnames]{xcolor}
+\RequirePackage{graphicx}
+\RequirePackage{array}
+\RequirePackage{tabularx}
+\RequirePackage{colortbl}
+\RequirePackage{booktabs}
+\RequirePackage{enumitem}
+\RequirePackage{needspace}
+\RequirePackage{ragged2e}
+\RequirePackage{fancyhdr}
+\RequirePackage{lastpage}
+\RequirePackage{microtype}
+\RequirePackage{fontawesome7}
+\RequirePackage{academicons}
+\RequirePackage[most]{tcolorbox}
+\RequirePackage{hyperref}
+
+% ---------- typefaces ----------
+\setmainfont{SourceSerif4}[
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-RegularIt,
+  BoldFont       = *-Semibold,
+  BoldItalicFont = *-SemiboldIt,
+  Numbers        = Lining]
+\setsansfont{SourceSans3}[
+  Extension      = .otf,
+  UprightFont    = *-Regular,
+  ItalicFont     = *-RegularIt,
+  BoldFont       = *-Semibold,
+  BoldItalicFont = *-SemiboldIt,
+  Numbers        = {Lining, Monospaced}]
+\linespread{1.04}
+
+% ---------- colours (site tokens) ----------
+\definecolor{ink}{HTML}{1C2638}
+\definecolor{muted}{HTML}{575F6B}
+\definecolor{accent}{HTML}{B4643C}
+\definecolor{accenttext}{HTML}{9A4F2A}
+% The site's rule colour is #E5E1DA; one step darker so that rules survive printing.
+\definecolor{rule}{HTML}{D3CCC1}
+
+\hypersetup{
+  colorlinks  = true,
+  linkcolor   = ink,
+  urlcolor    = accenttext,
+  pdfborder   = {0 0 0},
+  pdflang     = en-GB,
+  pdfdisplaydoctitle = true,
+  pdfcreator  = {LuaLaTeX with radiuk-cv.sty},
+}
+\urlstyle{same}
+
+% ---------- spacing ----------
+\newlength\cvwhenwidth
+\newlength\cvgap
+\newlength\cvitemsep
+\newlength\cvsectionskip
+\newlength\cvaftersection
+\newcommand\cvheadsize{}
+\ifcv@compact
+  \setlength\cvwhenwidth{2.0cm}
+  \setlength\cvgap{0.8em}
+  \setlength\cvitemsep{2pt}
+  \setlength\cvsectionskip{5pt}
+  \setlength\cvaftersection{3.5pt}
+  \renewcommand\cvheadsize{\fontsize{10.5}{12.5}\selectfont}
+\else
+  \setlength\cvwhenwidth{2.45cm}
+  \setlength\cvgap{0.9em}
+  \setlength\cvitemsep{4.5pt}
+  \setlength\cvsectionskip{13pt}
+  \setlength\cvaftersection{6pt}
+  \renewcommand\cvheadsize{\fontsize{12.5}{15}\selectfont}
+\fi
+
+\setlength\parindent{0pt}
+\setlength\parskip{0pt}
+\AtBeginDocument{\color{ink}\RaggedRight}
+\setlength\emergencystretch{2em}
+
+% ---------- header ----------
+\newcommand\cvname[1]{%
+  {\fontsize{\ifcv@compact 21\else 24\fi}{\ifcv@compact 25\else 28\fi}\selectfont\bfseries #1\par}}
+\newcommand\cvrole[1]{\vspace{3pt}{\sffamily\color{muted}#1\par}}
+\newenvironment{cvcontacts}
+  {\par\vspace{\ifcv@compact 6pt\else 8pt\fi}\sffamily\small
+   \renewcommand\arraystretch{\ifcv@compact 1.06\else 1.22\fi}%
+   \noindent\tabularx{\linewidth}{@{}>{\RaggedRight}X>{\RaggedRight}X>{\RaggedRight}X@{}}}
+  {\endtabularx\par}
+\newcommand\cvcontact[2]{\makebox[1.35em][l]{\color{accent}#1}#2}
+\newcommand\cvsummary[1]{\par\vspace{\ifcv@compact 6pt\else 9pt\fi}#1\par}
+
+% ---------- sections ----------
+\newcounter{cvsec}
+\newcommand\cvsection[2]{%
+  \par\addvspace{\cvsectionskip}%
+  \needspace{5\baselineskip}%
+  \stepcounter{cvsec}\pdfbookmark[1]{#2}{cvsec.\thecvsec}%
+  \noindent\makebox[1.5em][l]{\color{accent}\small #1}{\cvheadsize\bfseries #2}\par
+  \vspace{2.5pt}{\color{rule}\hrule height 0.5pt}\par
+  \vspace{\cvaftersection}\nobreak\@afterheading}
+\newcommand\cvsubsection[2]{%
+  \par\addvspace{\ifcv@compact 4pt\else 8pt\fi}\needspace{4\baselineskip}%
+  \noindent{\sffamily\bfseries #1}\ifx\relax#2\relax\else{\sffamily\color{muted}\enspace #2}\fi\par
+  \vspace{3pt}\nobreak\@afterheading}
+\newcommand\cvintro[1]{{#1\par}\vspace{\ifcv@compact 3pt\else 5pt\fi}}
+
+% ---------- dated entries ----------
+% Label and body are two top-aligned boxes on one line, so a two-line label never pushes the
+% body down or overlaps the next entry. Page breaks fall between entries. \leavevmode keeps the
+% first item of each box a text line, which [t] alignment needs (\color alone would not be).
+\newcommand\cventry[2]{%
+  \par\noindent
+  \parbox[t]{\cvwhenwidth}{\RaggedLeft\leavevmode\sffamily\small\color{muted}#1}%
+  \hspace{\cvgap}%
+  \parbox[t]{\dimexpr\linewidth-\cvwhenwidth-\cvgap\relax}{\RaggedRight\leavevmode #2}%
+  \par\vspace{\cvitemsep}}
+\newenvironment{cventries}{\par}{\par}
+\newcommand\cvtitle[1]{{\bfseries #1}\par}
+\newcommand\cvat[1]{#1\par}
+\newcommand\cvtext[1]{\par\vspace{1pt}#1\par}
+
+\newlist{cvbullets}{itemize}{1}
+\setlist[cvbullets]{
+  label = {\color{accent}\scriptsize\faCaretRight}, leftmargin = 1em, labelsep = 0.4em,
+  topsep = 1pt, partopsep = 0pt, parsep = 0pt, itemsep = 0pt}
+
+% ---------- publications ----------
+\newcommand\cvpubtitle[1]{{\bfseries #1}\par}
+\newcommand\cvlinks[1]{{\sffamily\small #1}}
+\newcommand\cvsep{\enspace{\color{muted}·}\enspace}
+\newcommand\cvmentee{\textsuperscript{†}}
+
+% Citation indicators, one row per database, never summed.
+\newenvironment{cvmetrics}
+  {\par\vspace{2pt}\sffamily\small\arrayrulecolor{rule}%
+   \setlength\aboverulesep{1.5pt}\setlength\belowrulesep{1.5pt}%
+   \noindent\begin{tabular}{@{}l r r r r l@{}}}
+  {\end{tabular}\par\vspace{4pt}}
+\newcommand\cvth[1]{{\color{muted}#1}}
+
+% ---------- tags (skills) ----------
+\newtcbox{\cvtag}{on line, boxrule = 0.4pt, arc = 1.6pt, colframe = rule, colback = white,
+  coltext = ink, left = 2.2pt, right = 2.2pt, top = 0.8pt, bottom = 0.8pt, boxsep = 0pt,
+  fontupper = \sffamily\footnotesize}
+\newcommand\cvtags[1]{{\setlength\lineskiplimit{1pt}#1\par}}
+
+% ---------- EU funding statement (emblem with the grant's disclaimer) ----------
+\newsavebox\cv@eubox
+\newcommand\cveu[2]{%
+  \par\vspace{\ifcv@compact 3pt\else 5pt\fi}%
+  \sbox\cv@eubox{\includegraphics[height=1cm]{#1}}%
+  \noindent\parbox[c]{\wd\cv@eubox}{\usebox\cv@eubox}\hspace{0.9em}%
+  \parbox[c]{\dimexpr\linewidth-\wd\cv@eubox-0.9em\relax}{%
+    \RaggedRight\sffamily\scriptsize\color{muted}#2}\par}
+
+% ---------- footer ----------
+\newcommand\cv@footleft{}
+\newcommand\cv@footcentre{}
+\newcommand\cv@footright{}
+\newcommand\cvfooter[3]{%
+  \renewcommand\cv@footleft{#1}\renewcommand\cv@footcentre{#2}\renewcommand\cv@footright{#3}}
+\fancypagestyle{cv}{%
+  \fancyhf{}%
+  \renewcommand\headrulewidth{0pt}%
+  \fancyfoot[L]{\sffamily\footnotesize\color{muted}\cv@footleft}%
+  \fancyfoot[C]{\sffamily\footnotesize\color{muted}\cv@footcentre}%
+  \fancyfoot[R]{\sffamily\footnotesize\color{muted}\cv@footright}}
+\pagestyle{cv}
+\AtBeginDocument{\thispagestyle{cv}}
+
+\endinput

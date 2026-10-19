@@ -146,6 +146,8 @@ const profile = defineCollection({
       researchgate: z.string(),
       linkedin: z.string(),
       github: z.string(),
+      /** Staff page slug on the Department of Computer Science website (kn.khmnu.edu.ua). */
+      department: z.string(),
     }),
     bios: z.object({ short: z.string(), medium: z.string(), long: z.string() }),
     currently: z.string(),
@@ -216,6 +218,8 @@ const service = defineCollection({
       'dissertation',
     ]),
     venue: z.string(),
+    /** Short venue name for the one-page CV. */
+    short: z.string().optional(),
     role: z.string(),
     years: z.array(z.number().int().min(2015).max(2035)).min(1),
     url: url.optional(),
@@ -301,6 +305,17 @@ const partner = defineCollection({
   }),
 });
 
+/** Text used only by the PDF CVs; all other CV content comes from the collections above. */
+const cv = defineCollection({
+  loader: file('src/data/cv.yaml'),
+  schema: z.object({
+    summary: z.object({ full: z.string(), onePage: z.string() }),
+    interests: z.array(z.object({ title: z.string(), text: z.string() })).min(1),
+    skills: z.array(z.object({ group: z.string(), items: z.array(z.string()).min(1) })),
+    languages: z.array(z.object({ language: z.string(), level: z.string() })),
+  }),
+});
+
 const news = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/news' }),
   schema: z.object({
@@ -323,5 +338,6 @@ export const collections = {
   registeredWorks,
   metrics,
   partner,
+  cv,
   news,
 };

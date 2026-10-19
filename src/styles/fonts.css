@@ -2,13 +2,17 @@
  * Web fonts built by scripts/build-fonts.py from Source Serif 4 and Source Sans 3 (Adobe, SIL Open
  * Font License 1.1). Modified versions are renamed as the licence requires; licence texts are in
  * /fonts/. The extended-Latin files load only when a page uses those characters.
+ *
+ * font-display: optional. The latin files are preloaded, so they normally arrive within the
+ * block period; on a slow first visit the fallback stays for that page instead of swapping and
+ * re-wrapping the text (PageSpeed measured CLS 0.143 on the home page with swap).
  */
 
 @font-face {
   font-family: 'Radiuk Serif';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/serif-latin.woff2') format('woff2');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
@@ -19,7 +23,7 @@
   font-family: 'Radiuk Serif';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/serif-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-017F, U+0218-021B, U+2070-209F;
 }
@@ -28,7 +32,7 @@
   font-family: 'Radiuk Serif';
   font-style: italic;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/serif-italic-latin.woff2') format('woff2');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
@@ -39,7 +43,7 @@
   font-family: 'Radiuk Serif';
   font-style: italic;
   font-weight: 400;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/serif-italic-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-017F, U+0218-021B, U+2070-209F;
 }
@@ -48,7 +52,7 @@
   font-family: 'Radiuk Sans';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/sans-latin.woff2') format('woff2');
   unicode-range:
     U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329,
@@ -59,7 +63,7 @@
   font-family: 'Radiuk Sans';
   font-style: normal;
   font-weight: 400 600;
-  font-display: swap;
+  font-display: optional;
   src: url('/fonts/sans-latin-ext.woff2') format('woff2');
   unicode-range: U+0100-017F, U+0218-021B, U+2070-209F;
 }

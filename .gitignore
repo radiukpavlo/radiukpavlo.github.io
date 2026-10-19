@@ -34,3 +34,6 @@ desktop.ini
 # Local reports from npm run review / lighthouse
 /review/
 /lighthouse/
+
+# LaTeX work folder of npm run cv (the PDFs are committed in public/cv/)
+/.cv/

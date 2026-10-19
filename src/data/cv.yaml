@@ -1,0 +1,71 @@
+# Text used only by the PDF CVs (src/lib/cv-tex.ts). Everything else in the PDFs comes from the
+# same collections as the web pages. Skills and languages follow the 08_cv knowledge base, file 11.
+main:
+  summary:
+    full: >-
+      I work on explainable artificial intelligence. My methods map what a deep network has learned
+      onto the features that clinicians and engineers already use, as a transition matrix between
+      the two feature spaces, so that its decisions can be checked and audited. I validate them
+      against expert judgement in cardiac MRI, ECG and chest radiography, and apply them to UAV
+      inspection of wind and solar plants and to urban traffic control. I am a Researcher in the
+      Horizon Europe project U_CAN and technical lead of its Khmelnytskyi traffic pilot, and a
+      full-time doctoral candidate for the Doctor of Science degree.
+    onePage: >-
+      I work on explainable artificial intelligence: methods that map what a deep network has
+      learned onto the features clinicians and engineers already use, so that its decisions can be
+      checked and audited. I apply them in medical imaging, UAV inspection of energy infrastructure
+      and urban traffic control, and I am a Researcher in the Horizon Europe project U_CAN.
+  interests:
+    - title: Explainable AI
+      text: >-
+        Transition matrices between a model's feature space and an expert's, extended with Lie-group
+        equivariance, rough-set production rules and conflict-aware auditing.
+    - title: Medical AI
+      text: >-
+        Explanations for ECG, cardiac MRI and chest radiographs, evaluated against clinical expert
+        judgement.
+    - title: Energy and UAV inspection
+      text: >-
+        Detection and criticality assessment of defects in wind turbines and photovoltaic plants
+        from UAV imagery.
+    - title: Smart mobility
+      text: >-
+        Reinforcement-learning signal control and traffic-pattern recognition for urban mobility.
+  skills:
+    - group: Machine learning
+      items:
+        - Deep learning
+        - PyTorch
+        - TensorFlow
+        - Keras
+        - Computer vision
+        - NLP and LLMs
+        - Reinforcement learning
+        - scikit-learn
+        - XGBoost
+        - Explainable AI
+    - group: Engineering
+      items:
+        - Python
+        - TypeScript
+        - C#
+        - SQL
+        - AWS
+        - Docker
+        - Git
+        - PostgreSQL
+        - MySQL
+    - group: Analysis and simulation
+      items:
+        - Statistical modelling
+        - Forecasting
+        - SUMO
+        - PTV Visum
+        - Power BI
+        - Tableau
+  languages:
+    - language: Ukrainian
+      level: native
+    - language: English
+      level: >-
+        professional working proficiency (CEFR B2 certified; teaches and publishes in English)

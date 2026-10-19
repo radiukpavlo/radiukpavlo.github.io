@@ -10,6 +10,7 @@ import { getPartner, getProfile, profileLinks } from '@/lib/profile';
 const profile = await getProfile();
 const partner = await getPartner();
 const links = profileLinks(profile.ids);
+const department = links.find((l) => l.key === 'department');
 const ucan = (await getCollection('projects')).find((p) => p.data.acronym === 'U_CAN')?.data;
 
 const words = (s: string) => s.split(/\s+/).filter(Boolean).length;
@@ -59,6 +60,10 @@ const BIOS = [
         <dt>Unit</dt>
         <dd>{profile.department}, {profile.faculty}</dd>
       </div>
+      {department && <div>
+        <dt>Staff profile</dt>
+        <dd><a href={department.href}>{profile.department} website</a></dd>
+      </div>}
       <div>
         <dt>Location</dt>
         <dd>{profile.city}, {profile.country}</dd>
@@ -71,6 +76,15 @@ const BIOS = [
         </dd>
       </div>}
     </dl>
+  </section>
+
+  <section class="section" aria-labelledby="cv-title">
+    <h2 id="cv-title" class="section-title">Curriculum vitae</h2>
+    <p class="prose">
+      The <a href="/cv/Pavlo-Radiuk-CV-one-page.pdf">one-page CV</a> (PDF) suits proposal annexes
+      and partner descriptions. The <a href="/cv/Pavlo-Radiuk-CV.pdf">full CV</a> (PDF) adds the
+      complete lists of publications, presentations and service for evaluators.
+    </p>
   </section>
 
   <section class="section" aria-labelledby="photo">
