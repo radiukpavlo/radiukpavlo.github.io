@@ -1,4 +1,4 @@
-@layer reset, base;
+@layer reset, base, layout, utilities;
 
 @layer reset {
   *,
@@ -45,20 +45,21 @@
   html {
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
+    scroll-padding-top: calc(var(--header-height) + var(--space-4));
   }
 
   body {
     min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
     background: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-sans);
+    font-family: var(--font-serif);
     font-size: var(--text-base);
     line-height: var(--leading-body);
     font-optical-sizing: auto;
+    font-size-adjust: from-font;
     -webkit-font-smoothing: antialiased;
-    transition:
-      background-color var(--duration) var(--ease),
-      color var(--duration) var(--ease);
   }
 
   h1,
@@ -72,7 +73,9 @@
     text-wrap: balance;
   }
 
-  p {
+  p,
+  li,
+  dd {
     text-wrap: pretty;
   }
 
@@ -86,7 +89,7 @@
     text-decoration-thickness: 2px;
   }
 
-  :focus-visible {
+  :where(a:any-link, button, summary, [tabindex]):focus-visible {
     outline: 2px solid var(--color-accent-text);
     outline-offset: 3px;
     border-radius: 2px;
@@ -99,6 +102,118 @@
     font-size: 0.9em;
   }
 
+  ::selection {
+    background: var(--color-accent-soft);
+    color: var(--color-text);
+  }
+
+  main:focus {
+    outline: none;
+  }
+}
+
+@layer layout {
+  .container {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+  }
+
+  .prose {
+    max-width: var(--measure);
+  }
+
+  .section {
+    padding-block: var(--space-7);
+  }
+
+  /* Divider aligned with the text column, not the gutters. */
+  .section + .section {
+    background: linear-gradient(var(--color-rule), var(--color-rule)) center top /
+      calc(100% - 2 * var(--gutter)) 1px no-repeat;
+  }
+
+  .eyebrow {
+    font-family: var(--font-sans);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    color: var(--color-text-muted);
+  }
+
+  .section-title {
+    font-size: var(--text-2xl);
+    margin-block-end: var(--space-5);
+  }
+
+  /* Interface text: navigation, labels, metadata, buttons. */
+  .sans {
+    font-family: var(--font-sans);
+  }
+
+  .muted {
+    color: var(--color-text-muted);
+  }
+}
+
+@layer utilities {
+  /* Hidden visually, kept in the accessibility tree; focusable content opts out. */
+  .visually-hidden:where(:not(:focus-within, :active)) {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  /* Always hidden visually (labels inside buttons, table captions for charts). */
+  .sr-only {
+    position: absolute !important;
+    clip-path: inset(50%) !important;
+    overflow: hidden !important;
+    width: 1px !important;
+    height: 1px !important;
+    margin: -1px !important;
+    padding: 0 !important;
+    border: 0 !important;
+    white-space: nowrap !important;
+  }
+
+  .skip-link {
+    position: fixed;
+    inset-block-start: var(--space-2);
+    inset-inline-start: var(--space-2);
+    z-index: 100;
+    padding: var(--space-2) var(--space-4);
+    background: var(--color-surface);
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-md);
+  }
+
+  /*
+   * Theme-specific media and labels. Only hide rules, with !important so they beat unlayered
+   * component styles; an element shows with its own display value when no rule applies.
+   * Rendered scheme = the toggle override if set, else the system preference.
+   */
+  @media not (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name='color-scheme'][content='dark'])) .only-dark,
+    :root:has(> head > meta[name='color-scheme'][content='dark']) .only-light {
+      display: none !important;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not(:has(> head > meta[name='color-scheme'][content='light'])) .only-light,
+    :root:has(> head > meta[name='color-scheme'][content='light']) .only-dark {
+      display: none !important;
+    }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -107,5 +222,18 @@
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+  }
+}
+
+/* Cross-document view transitions: progressive enhancement, off for reduced motion. */
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation-duration: 220ms;
+    animation-timing-function: var(--ease);
   }
 }

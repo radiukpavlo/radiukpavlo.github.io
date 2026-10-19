@@ -1,0 +1,148 @@
+---
+/**
+ * One publication in the standard academic format: optional figure thumbnail, title, byline,
+ * italic venue and year, then text links. The thumbnail caption credits figure and licence; the
+ * citation beside it identifies the source.
+ */
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+import AuthorList from '@/components/AuthorList.astro';
+import { licenceLabel, primaryUrl, venueParts, type Publication } from '@/lib/format';
+
+interface Props {
+  entry: Publication;
+  showThumbnail?: boolean;
+  eager?: boolean;
+}
+
+const thumbs = import.meta.glob<{ default: ImageMetadata }>('/src/assets/thumbnails/*', {
+  eager: true,
+});
+
+const { entry, showThumbnail = true, eager = false } = Astro.props;
+const pub = entry.data;
+const thumb =
+  showThumbnail && pub.thumbnail
+    ? thumbs[`/src/assets/thumbnails/${pub.thumbnail}`]?.default
+    : undefined;
+if (showThumbnail && pub.thumbnail && !thumb) {
+  throw new Error(`Missing thumbnail ${pub.thumbnail} for ${entry.id}`);
+}
+const href = primaryUrl(pub);
+const { name, rest } = venueParts(pub);
+const links = [
+  pub.doi && { label: 'DOI', href: `https://doi.org/${pub.doi}` },
+  pub.pdf && { label: 'PDF', href: pub.pdf },
+  pub.code && { label: 'Code', href: pub.code },
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<li class:list={['pub-row', { 'has-thumb': thumb }]}>
+  {thumb && <figure class="thumb">
+    <Image
+      src={thumb}
+      alt=""
+      widths={[240, 360, 480]}
+      sizes="(min-width: 40rem) 11rem, 6rem"
+      loading={eager ? 'eager' : 'lazy'}
+    />
+    <figcaption class="sans">
+      {pub.thumbfigure} of this article · <a href={pub.license}>{licenceLabel(pub.license)}</a>
+    </figcaption>
+  </figure>}
+  <div class="text">
+    <h3 class="title">
+      {href ? <a href={href}>{pub.title}</a> : pub.title}
+      {pub.langid && <span class="lang"> (in Ukrainian)</span>}
+    </h3>
+    <AuthorList pub={pub} />
+    <p class="venue"><cite>{name}</cite>{rest}, {pub.year}.</p>
+    {links.length > 0 && <p class="links sans">
+      {links.map((l, i) => (
+        <>
+          {i > 0 && <span aria-hidden="true"> · </span>}
+          <a href={l.href}>{l.label}</a>
+        </>
+      ))}
+    </p>}
+  </div>
+</li>
+
+<style>
+  .pub-row {
+    display: grid;
+    gap: var(--space-3) var(--space-5);
+    padding-block: var(--space-5);
+    border-bottom: 1px solid var(--color-rule);
+  }
+
+  .pub-row.has-thumb {
+    grid-template-columns: 6rem minmax(0, 1fr);
+  }
+
+  @media (min-width: 40rem) {
+    .pub-row.has-thumb {
+      grid-template-columns: 11rem minmax(0, 1fr);
+    }
+  }
+
+  .thumb {
+    display: grid;
+    gap: var(--space-1);
+    align-content: start;
+  }
+
+  /* Figures are shown whole (never cropped), on white as published. */
+  .thumb :global(img) {
+    inline-size: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: contain;
+    padding: var(--space-1);
+    background: #fff;
+    border: 1px solid var(--color-rule);
+    border-radius: var(--radius-sm);
+  }
+
+  .thumb figcaption {
+    font-size: var(--text-xs);
+    line-height: 1.35;
+    color: var(--color-text-muted);
+  }
+
+  .text {
+    display: grid;
+    align-content: start;
+    gap: var(--space-1);
+  }
+
+  .title {
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.35;
+  }
+
+  .title a {
+    color: var(--color-text);
+    text-decoration: none;
+  }
+
+  .title a:hover {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+  }
+
+  .lang {
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .venue {
+    font-size: var(--text-sm);
+  }
+
+  .links {
+    margin-block-start: var(--space-1);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+</style>

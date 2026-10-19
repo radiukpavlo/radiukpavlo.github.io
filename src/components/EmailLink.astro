@@ -1,0 +1,22 @@
+---
+/** Email link assembled in the browser so the plain address is not in the HTML. */
+interface Props {
+  address: string;
+  class?: string;
+}
+
+const { address, class: className } = Astro.props;
+const [user, domain] = address.split('@');
+---
+
+<a class:list={['email-link', className]} href="/partner-kit/#contact" data-u={user} data-d={domain}
+  >{user} [at] {domain}</a
+>
+
+<script>
+  for (const link of document.querySelectorAll<HTMLAnchorElement>('a.email-link[data-u]')) {
+    const address = `${link.dataset.u}@${link.dataset.d}`;
+    link.href = `mailto:${address}`;
+    link.textContent = address;
+  }
+</script>

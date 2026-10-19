@@ -1,0 +1,78 @@
+---
+import EmailLink from '@/components/EmailLink.astro';
+import { getProfile, profileLinks } from '@/lib/profile';
+
+const profile = await getProfile();
+const links = profileLinks(profile.ids);
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer sans">
+  <div class="container">
+    <div class="row">
+      <p>
+        <span class="name">Dr. {profile.name}</span> · {profile.position}, {profile.university},
+        {profile.city}, {profile.country}
+      </p>
+      <p class="emails">
+        {profile.emails.map((e) => (
+          <EmailLink address={e.address} />
+        ))}
+      </p>
+    </div>
+    <ul class="profiles" aria-label="Research profiles">
+      {links.map((link) => <li>
+        <a href={link.href} rel="me">
+          {link.label}
+        </a>
+      </li>)}
+    </ul>
+    <p class="fine">
+      © {year} Pavlo Radiuk. Content all rights reserved; site code
+      <a href="https://github.com/radiukpavlo/radiukpavlo.github.io">MIT</a>. ·
+      <a href="/privacy/">Privacy</a>
+    </p>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    margin-block-start: auto;
+    padding-block: var(--space-6);
+    border-top: 1px solid var(--color-rule);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  .row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-5);
+  }
+
+  .name {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .emails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-4);
+  }
+
+  .profiles {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-1) var(--space-4);
+    margin: var(--space-3) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .fine {
+    margin-block-start: var(--space-4);
+    font-size: var(--text-xs);
+  }
+</style>

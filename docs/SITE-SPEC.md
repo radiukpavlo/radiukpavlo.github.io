@@ -4,24 +4,30 @@ The contract for building radiukpavlo.github.io. Pages are built against this do
 
 ## Audience and message
 
-Primary audience: coordinators and partners of EU research consortia (Horizon Europe, MSCA, EuroHPC). Secondary: editors, programme chairs, students. The hero line is "Explainable AI that experts can audit", with three application pillars (Medical AI; Energy & UAV inspection; Smart mobility) and a separate partner block.
+Primary audience: coordinators and partners of EU research consortia (Horizon Europe, MSCA, EuroHPC). Secondary: editors, programme chairs, students. The home page stays deliberately sparse: name, position, a three-sentence first-person bio, research areas, selected publications, recent news and one collaboration line. No slogan and no citation statistics on the home page.
 
 ## Routes
 
-| Route             | Purpose                                                                                                                                                 | Data                                                    |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| `/`               | Hero, dated metrics strip, three pillars, six selected works with thumbnails, latest five news items, "Currently working on", partner call to action    | `profile`, `metrics`, `publications` (selected), `news` |
-| `/research/`      | The transition-matrix programme, the three pillars in depth, data and software                                                                          | `profile`, `publications` (by topic), `projects`        |
-| `/publications/`  | Full list: type tabs, topic filters, text search, year grouping, output-per-year chart, BibTeX copy, Dimensions badges, registered works                | `publications`, `registeredWorks`                       |
-| `/projects/`      | U_CAN with the EU emblem and disclaimer, the MES project, funding summary                                                                               | `projects`                                              |
-| `/talks-service/` | Europe map and timeline of contributions; programme committees; conference reviewing; editorial; organising; dissertation councils; "450+ peer reviews" | `talks`, `service`, `metrics`                           |
-| `/teaching/`      | Courses by level, the English-taught course, open courseware link                                                                                       | `teaching`                                              |
-| `/cv/`            | Positions (academic, research, industry), education, awards; print stylesheet; PDF download                                                             | `positions`, `education`, `awards`, `projects`          |
-| `/partner-kit/`   | Capability statement, four roles, bios (50/150/300 words) with copy buttons, headshot, KhNU PIC, contact                                                | `partner`, `profile`                                    |
-| `/privacy/`       | Hosting, statistics, citation badges, external links                                                                                                    | `config`                                                |
-| `/404`            | Short message and links to the main pages                                                                                                               | —                                                       |
+| Route             | Purpose                                                                                                                                                                              | Data                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------ |
+| `/`               | Introduction (name, position, short bio, key links), three research areas, six selected publications as a list with credited thumbnails, latest four news items, collaboration line  | `profile`, `publications` (selected), `news`     |
+| `/research/`      | The transition-matrix programme, the three pillars in depth, data and software                                                                                                       | `profile`, `publications` (by topic), `projects` |
+| `/publications/`  | Full list: type tabs, topic filters, text search, year grouping, output-per-year chart, BibTeX copy, Dimensions badges, citation-metrics table by database (dated), registered works | `publications`, `metrics`, `registeredWorks`     |
+| `/projects/`      | U_CAN with the EU emblem and disclaimer, the MES project, funding summary                                                                                                            | `projects`                                       |
+| `/talks-service/` | Europe map and timeline of contributions; programme committees; conference reviewing; editorial; organising; dissertation councils; "450+ peer reviews"                              | `talks`, `service`, `metrics`                    |
+| `/teaching/`      | Courses by level, the English-taught course, open courseware link                                                                                                                    | `teaching`                                       |
+| `/cv/`            | Positions (academic, research, industry), education, awards; print stylesheet; PDF download                                                                                          | `positions`, `education`, `awards`, `projects`   |
+| `/partner-kit/`   | Capability statement, four roles, bios (50/150/300 words) with copy buttons, headshot, KhNU PIC, contact                                                                             | `partner`, `profile`                             |
+| `/privacy/`       | Hosting, statistics, citation badges, external links                                                                                                                                 | `config`                                         |
+| `/404`            | Short message and links to the main pages                                                                                                                                            | —                                                |
 
 Navigation: sticky top bar with Research, Publications, Projects, Talks & Service, Teaching, CV, Partner Kit; theme toggle at the end. The footer holds the profile icon row (Scholar, ORCID, Scopus, WoS, LinkedIn, ResearchGate, GitHub), both email addresses (assembled by script), the Privacy link and the licence note.
+
+## Design
+
+- Typography: Source Serif 4 (optical sizes, real italics) for headings and running text at 18 px; Source Sans 3 for interface text (navigation, labels, metadata, captions, tables).
+- Palette: near-white warm background, ink-navy text, copper reserved for links and the current-page marker; dark theme from the same tokens.
+- Clean and rigorous: thin rules aligned with the text column, small radii, no shadows, gradients, textures or hover motion. Publications follow the standard academic format (title, byline, italic venue, year, text links).
 
 ## Content rules
 
