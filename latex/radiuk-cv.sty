@@ -31,6 +31,9 @@
 \RequirePackage{academicons}
 \RequirePackage[most]{tcolorbox}
 \RequirePackage{hyperref}
+\RequirePackage{accsupp}
+% Icons are decoration: empty ActualText keeps their glyph names out of copied or extracted text.
+\newcommand\cvicon[1]{\BeginAccSupp{method=escape,ActualText={}}#1\EndAccSupp{}}
 
 % ---------- typefaces ----------
 \setmainfont{SourceSerif4}[
@@ -105,7 +108,7 @@
    \renewcommand\arraystretch{\ifcv@compact 1.06\else 1.22\fi}%
    \noindent\tabularx{\linewidth}{@{}>{\RaggedRight}X>{\RaggedRight}X>{\RaggedRight}X@{}}}
   {\endtabularx\par}
-\newcommand\cvcontact[2]{\makebox[1.35em][l]{\color{accent}#1}#2}
+\newcommand\cvcontact[2]{\makebox[1.35em][l]{\color{accent}\cvicon{#1}}#2}
 \newcommand\cvsummary[1]{\par\vspace{\ifcv@compact 6pt\else 9pt\fi}#1\par}
 
 % ---------- sections ----------
@@ -114,7 +117,7 @@
   \par\addvspace{\cvsectionskip}%
   \needspace{5\baselineskip}%
   \stepcounter{cvsec}\pdfbookmark[1]{#2}{cvsec.\thecvsec}%
-  \noindent\makebox[1.5em][l]{\color{accent}\small #1}{\cvheadsize\bfseries #2}\par
+  \noindent\makebox[1.5em][l]{\color{accent}\small\cvicon{#1}}{\cvheadsize\bfseries #2}\par
   \vspace{2.5pt}{\color{rule}\hrule height 0.5pt}\par
   \vspace{\cvaftersection}\nobreak\@afterheading}
 \newcommand\cvsubsection[2]{%
@@ -140,7 +143,7 @@
 
 \newlist{cvbullets}{itemize}{1}
 \setlist[cvbullets]{
-  label = {\color{accent}\scriptsize\faCaretRight}, leftmargin = 1em, labelsep = 0.4em,
+  label = {\color{accent}\scriptsize\cvicon{\faCaretRight}}, leftmargin = 1em, labelsep = 0.4em,
   topsep = 1pt, partopsep = 0pt, parsep = 0pt, itemsep = 0pt}
 
 % ---------- publications ----------

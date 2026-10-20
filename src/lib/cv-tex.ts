@@ -46,7 +46,9 @@ const PUB_GROUPS = [
 /* ---------- data ---------- */
 
 const byStart = <T extends { data: { start?: string; end: string | null } }>(a: T, b: T) =>
-  (b.data.start ?? b.data.end ?? '').localeCompare(a.data.start ?? a.data.end ?? '');
+  (b.data.start ?? b.data.end ?? '').localeCompare(a.data.start ?? a.data.end ?? '') ||
+  // Same start: an ongoing entry (no end) comes before one that has ended.
+  Number(a.data.end !== null) - Number(b.data.end !== null);
 
 async function load() {
   const [profile, metrics, partner, cv] = await Promise.all([
@@ -393,7 +395,10 @@ function fullCv(d: Data): string {
       'faUsers',
       'Service',
       entries([
-        item('Peer review', `${tex(d.metrics.reviews)} reviews for journals and conferences.`),
+        item(
+          'Peer review',
+          `${tex(d.metrics.reviews)} reviews for journals and conferences (Web of Science).`,
+        ),
         item('Programme committees', lines(ofKind(d, 'programme-committee').map(venueYears))),
         item('Editorial', lines(ofKind(d, 'editorial').map(roleVenue))),
         item('Organising', lines(ofKind(d, 'organizing').map(roleVenue))),
@@ -529,7 +534,10 @@ function onePageCv(d: Data): string {
         ),
         item('Editorial', `${ofKind(d, 'editorial').map(roleShort).join('; ')}.`),
         item('Organising', `${ofKind(d, 'organizing').map(roleShort).join('; ')}.`),
-        item('Peer review', `${tex(metrics.reviews)} reviews for journals and conferences.`),
+        item(
+          'Peer review',
+          `${tex(metrics.reviews)} reviews for journals and conferences (Web of Science).`,
+        ),
         item('Awards', `${d.awards.map(award).join('; ')}.`),
         item(
           'Teaching',

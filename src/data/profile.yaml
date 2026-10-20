@@ -34,8 +34,8 @@ main:
       Pavlo Radiuk is Associate Professor in the Department of Computer Science, Faculty of
       Information Technologies, Khmelnytskyi National University, Ukraine, where he is also a
       full-time doctoral candidate for the Doctor of Science degree. He received his Ph.D. in
-      Computer Science in 2022 for work on information technology for the early diagnosis of
-      pneumonia from individual radiographs.
+      Computer Science in 2022 for an information technology for the early diagnosis of pneumonia
+      based on individualised parameter selection for lung-image classification models.
 
       His research concerns explainable and trustworthy artificial intelligence. He formalises the
       mapping between a deep model's learned feature space and the feature space a domain expert
@@ -48,10 +48,11 @@ main:
       U_CAN at Khmelnytskyi National University, within the EU Cities Mission.
     long: >-
       Pavlo Radiuk is Associate Professor in the Department of Computer Science, Faculty of
-      Information Technologies, Khmelnytskyi National University, Ukraine. He graduated with
-      distinction in Mathematical and Computer Modelling in 2017, defended his Ph.D. in Computer
+      Information Technologies, Khmelnytskyi National University, Ukraine. After a B.Sc. in Applied
+      Mathematics (2015), he graduated with distinction in Mathematical and Computer Modelling in
+      2017, defended his Ph.D. in Computer
       Science in December 2021 (awarded 2022), and since September 2025 has been a full-time
-      doctoral candidate for the Doctor of Science degree, with Professor Oleksander Barmak as
+      doctoral candidate for the Doctor of Science degree, with Professor Oleksandr Barmak as
       scientific consultant.
 
       His research addresses a single question across several domains: how to make the decisions

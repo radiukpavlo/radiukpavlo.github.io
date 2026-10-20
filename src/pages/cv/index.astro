@@ -9,14 +9,20 @@ import { getMetrics, getProfile, profileLinks } from '@/lib/profile';
 const profile = await getProfile();
 const metrics = await getMetrics();
 const links = profileLinks(profile.ids);
+const asOf = (date: string) =>
+  new Date(date).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
 const byStart = <T extends { data: { start?: string; end: string | null } }>(a: T, b: T) =>
-  (b.data.start ?? b.data.end ?? '').localeCompare(a.data.start ?? a.data.end ?? '');
+  (b.data.start ?? b.data.end ?? '').localeCompare(a.data.start ?? a.data.end ?? '') ||
+  // Same start: an ongoing entry (no end) comes before one that has ended.
+  Number(a.data.end !== null) - Number(b.data.end !== null);
 
 const positions = (await getCollection('positions')).sort(byStart);
 const research = positions.filter((p) => p.data.sector !== 'industry');
 const industry = positions.filter((p) => p.data.sector === 'industry');
 const education = (await getCollection('education')).sort(byStart);
-const projects = (await getCollection('projects')).sort(byStart);
+const projects = (await getCollection('projects'))
+  .sort(byStart)
+  .sort((a, b) => Number(b.data.status === 'ongoing') - Number(a.data.status === 'ongoing'));
 const awards = await getCollection('awards');
 const service = (await getCollection('service')).map((s) => s.data);
 const teaching = (await getCollection('teaching')).filter((c) => c.data.current);
@@ -133,9 +139,10 @@ const PDF_ONE_PAGE = '/cv/Pavlo-Radiuk-CV-one-page.pdf';
     <h2 id="cv-pubs" class="section-title">Publications</h2>
     <p class="prose">
       {count('journal')} journal articles, {count('conference')} conference papers and
-      {count('chapter')} book chapters. Google Scholar: {formatNumber(metrics.scholar.citations)}
-      citations, h-index {metrics.scholar.h}; Scopus: h-index {metrics.scopus.h}. The full list is
-      on the <a href="/publications/">publications page</a>. Selected:
+      {count('chapter')} book chapters. Google Scholar ({asOf(metrics.scholar.asOf)}):
+      {formatNumber(metrics.scholar.citations)} citations, h-index {metrics.scholar.h}; Scopus
+      ({asOf(metrics.scopus.asOf)}): h-index {metrics.scopus.h}. The full list is on the
+      <a href="/publications/">publications page</a>. Selected:
     </p>
     <ol class="pubs">
       {selected.map((entry) => (
@@ -162,7 +169,7 @@ const PDF_ONE_PAGE = '/cv/Pavlo-Radiuk-CV-one-page.pdf';
     <dl class="service sans">
       <div>
         <dt>Peer review</dt>
-        <dd>{metrics.reviews} reviews for journals and conferences</dd>
+        <dd>{metrics.reviews} reviews for journals and conferences (Web of Science)</dd>
       </div>
       <div>
         <dt>Programme committees</dt>
