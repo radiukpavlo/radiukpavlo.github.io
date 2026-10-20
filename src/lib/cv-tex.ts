@@ -504,9 +504,13 @@ function onePageCv(d: Data): string {
     section(
       'faGraduationCap',
       'Education',
-      entries(d.education.map((e) => educationItem(e, false))),
+      entries(d.education.filter((e) => e.cvOnePage).map((e) => educationItem(e, false))),
     ),
-    section('faFlask', 'Research projects', entries(d.projects.map((p) => projectItem(p, false)))),
+    section(
+      'faFlask',
+      'Research projects',
+      entries(d.projects.filter((p) => p.cvOnePage).map((p) => projectItem(p, false))),
+    ),
     section(
       'faBookOpen',
       'Selected publications',

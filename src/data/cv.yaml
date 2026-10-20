@@ -8,8 +8,8 @@ main:
       the two feature spaces, so that its decisions can be checked and audited. I validate them
       against expert judgement in cardiac MRI, ECG and chest radiography, and apply them to UAV
       inspection of wind and solar plants and to urban traffic control. I am a Researcher in the
-      Horizon Europe project U_CAN and technical lead of its Khmelnytskyi traffic pilot, and a
-      full-time doctoral candidate for the Doctor of Science degree.
+      Khmelnytskyi traffic pilot of the Horizon Europe project U_CAN at Khmelnytskyi National
+      University, and a full-time doctoral candidate for the Doctor of Science degree.
     onePage: >-
       I work on explainable artificial intelligence: methods that map what a deep network has
       learned onto the features clinicians and engineers already use, so that its decisions can be

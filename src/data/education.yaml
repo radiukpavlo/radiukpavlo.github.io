@@ -29,9 +29,20 @@
   field: Mathematical and Computer Modelling
   institution: Khmelnytskyi National University
   city: Khmelnytskyi
+  start: '2015-09'
   end: '2017'
   status: completed
   thesis: >-
     Optimisation of Filter Size Distribution in Convolutional Neural Networks for Classification
     Problems
   honours: with distinction
+
+- id: bsc
+  degree: B.Sc.
+  field: Applied Mathematics
+  institution: Khmelnytskyi National University
+  city: Khmelnytskyi
+  start: '2011-09'
+  end: '2015'
+  status: completed
+  cvOnePage: false

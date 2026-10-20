@@ -4,7 +4,7 @@
   funder: European Union
   programme: Horizon Europe, EU Mission for Climate-Neutral and Smart Cities
   grantId: '101148374'
-  role: Researcher; technical lead, Khmelnytskyi traffic pilot
+  role: Researcher, Khmelnytskyi traffic pilot
   start: '2024-05'
   end: '2028-04'
   status: ongoing
@@ -40,3 +40,40 @@
     processing UAV imagery to detect defects in wind- and solar-energy installations.
   topics:
     - uav-energy
+
+- id: critical-decisions-mental-formal
+  title: >-
+    Development of Information Technology for Making Human-Controlled Critical and Safety Decisions
+    Based on Mental-Formal Models of Machine Learning
+  funder: Ministry of Education and Science of Ukraine
+  programme: State-funded research and development
+  grantId: 0121U112025
+  role: Researcher (executor)
+  start: '2021'
+  end: '2022'
+  status: completed
+  euFunded: false
+  cvOnePage: false
+  summary: >-
+    An applied-research project of Khmelnytskyi National University led by Prof. Oleksandr Barmak.
+    It developed an architecture and machine-learning methods for safety-critical decisions made
+    with artificial intelligence, including a data-processing system that shows which factors drive
+    each decision and how to interpret it.
+  topics:
+    - xai
+
+- id: distributed-malware-detection
+  title: Self-Organized Distributed System for Malware Detection in Computer Networks
+  funder: Ministry of Education and Science of Ukraine
+  programme: State-funded research and development
+  grantId: 0121U109936
+  role: Researcher (executor)
+  start: '2021'
+  end: '2022'
+  status: completed
+  euFunded: false
+  cvOnePage: false
+  summary: >-
+    An applied-research project of Khmelnytskyi National University led by Prof. Tetiana
+    Hovorushchenko. It developed the theoretical framework for, and built, a self-organised
+    distributed system that detects malware in computer networks.

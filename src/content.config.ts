@@ -183,6 +183,8 @@ const education = defineCollection({
     thesis: z.string().optional(),
     advisor: z.string().optional(),
     honours: z.string().optional(),
+    /** False keeps a degree off the one-page CV; it still appears everywhere else. */
+    cvOnePage: z.boolean().default(true),
   }),
 });
 
@@ -204,6 +206,8 @@ const projects = defineCollection({
     url: url.optional(),
     summary: z.string(),
     topics: z.array(z.enum(TOPICS)).default([]),
+    /** False keeps an older project off the one-page CV; it still appears everywhere else. */
+    cvOnePage: z.boolean().default(true),
   }),
 });
 
