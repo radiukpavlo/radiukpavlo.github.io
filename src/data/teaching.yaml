@@ -11,6 +11,7 @@
   level: master
   language: en
   current: true
+  url: https://github.com/radiukpavlo/conducting-experiments
 
 - id: research-methodologies-cs
   title: >-
@@ -31,6 +32,7 @@
   level: bachelor
   language: uk
   current: true
+  url: https://github.com/radiukpavlo/my-stats-data-processing
 
 - id: decision-theory-operations-research
   title: Decision Theory and Operations Research
@@ -43,6 +45,7 @@
   level: bachelor
   language: uk
   current: true
+  url: https://github.com/radiukpavlo/my-operations-research
 
 - id: probability-statistics
   title: Probability Theory and Statistical Data Processing

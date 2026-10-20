@@ -277,7 +277,8 @@ const registeredWorks = defineCollection({
   schema: z.object({
     certificate: z.string(),
     title: z.string(),
-    kind: z.enum(['computer program', 'scientific work', 'methodological work']),
+    // Omitted where the certificate's legal work type is unverified.
+    kind: z.enum(['computer program', 'scientific work', 'methodological work']).optional(),
     year: z.number().int(),
     coauthors: z.array(z.string()),
   }),

@@ -316,7 +316,7 @@ function metricsTable(m: Data['metrics']): string {
 function publicationsFull(d: Data): string {
   const intro =
     `\\cvintro{${d.pubs.length} works: ${pubCounts(d)}. ${LEGEND} ` +
-    `Each work links to its DOI or publisher page, with open-access PDFs and code where available; ` +
+    `Works link to their DOI or publisher page where one exists, with open-access PDFs and code where available; ` +
     `the list with BibTeX is at ${href(`${SITE}/publications/`, 'radiukpavlo.github.io/publications')}.}` +
     `\\cvsubsection{Citation indicators}{each database counts its own coverage, so figures are not summed}` +
     metricsTable(d.metrics);
@@ -462,7 +462,7 @@ function fullCv(d: Data): string {
           d.registered.map((w) =>
             item(
               String(w.year),
-              `\\cvtitle{${tex(w.title)}}\\cvat{Certificate No.~${tex(w.certificate)}, ${tex(w.kind)}` +
+              `\\cvtitle{${tex(w.title)}}\\cvat{Certificate No.~${tex(w.certificate)}${w.kind ? `, ${tex(w.kind)}` : ''}` +
                 (w.coauthors.length ? `; with ${tex(joinAnd(w.coauthors))}` : '') +
                 '.}',
             ),

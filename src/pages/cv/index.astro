@@ -138,11 +138,11 @@ const PDF_ONE_PAGE = '/cv/Pavlo-Radiuk-CV-one-page.pdf';
   <section class="section defer" aria-labelledby="cv-pubs" style="--defer-size: 1200px">
     <h2 id="cv-pubs" class="section-title">Publications</h2>
     <p class="prose">
-      {count('journal')} journal articles, {count('conference')} conference papers and
-      {count('chapter')} book chapters. Google Scholar ({asOf(metrics.scholar.asOf)}):
-      {formatNumber(metrics.scholar.citations)} citations, h-index {metrics.scholar.h}; Scopus
-      ({asOf(metrics.scopus.asOf)}): h-index {metrics.scopus.h}. The full list is on the
-      <a href="/publications/">publications page</a>. Selected:
+      {count('journal')} journal articles, {count('conference')} conference papers,
+      {count('chapter')} book chapters and {count('preprint')} preprints. Google Scholar
+      ({asOf(metrics.scholar.asOf)}): {formatNumber(metrics.scholar.citations)} citations, h-index
+      {metrics.scholar.h}; Scopus ({asOf(metrics.scopus.asOf)}): h-index {metrics.scopus.h}. The
+      full list is on the <a href="/publications/">publications page</a>. Selected:
     </p>
     <ol class="pubs">
       {selected.map((entry) => (

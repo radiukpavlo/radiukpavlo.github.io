@@ -24,13 +24,6 @@ Two LaTeX CVs are generated from the same data: a full CV (`public/cv/Pavlo-Radi
 npm run cv           # needs MiKTeX or TeX Live with LuaLaTeX, Source Serif 4, Source Sans 3, fontawesome7, academicons
 ```
 
-The 20 October 2026 review added the two confirmed ITS ESQC presentations (15-16 October) to
-`src/data/talks.yaml` and the website. **The full PDF still omits these two presentations.** Its
-rebuild was explicitly deferred by the owner because the documented LuaLaTeX toolchain is absent
-on this PC; the built-in compiler also lacks `fontawesome7.sty`. Both existing PDFs remain
-unchanged. The one-page LaTeX is identical to its previous source. Run `npm run cv` with the
-required toolchain before treating the full PDF as synchronised with the presentation list.
-
 ## Maintenance tools
 
 ```bash
@@ -45,7 +38,7 @@ The web fonts are instanced and subsetted from the Fontsource files (SIL Open Fo
 
 ## Deployment
 
-`.github/workflows/deploy.yml` checks, builds and — once the repository is public — deploys to GitHub Pages on every push to `main`. `.github/workflows/links.yml` checks links weekly and reports broken ones in the job summary.
+`.github/workflows/deploy.yml` checks, builds and deploys to GitHub Pages on every push to `main`; publishing is skipped while the repository is private. `.github/workflows/links.yml` checks links weekly and reports broken ones in the job summary.
 
 ## Requirements
 

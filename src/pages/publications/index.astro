@@ -132,7 +132,7 @@ const searchText = (p: (typeof pubs)[number]) =>
         <div class="entry-what">
           <h3>{w.title}</h3>
           <p>
-            {`${w.kind.charAt(0).toUpperCase() + w.kind.slice(1)}, certificate No. ${w.certificate}${w.coauthors.length ? `, with ${w.coauthors.join(', ')}` : ''}`}
+            {`${w.kind ? `${w.kind.charAt(0).toUpperCase() + w.kind.slice(1)}, certificate` : 'Certificate'} No. ${w.certificate}${w.coauthors.length ? `, with ${w.coauthors.join(', ')}` : ''}`}
           </p>
         </div>
       </li>)}
