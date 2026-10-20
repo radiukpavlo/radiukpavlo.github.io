@@ -1,6 +1,35 @@
 # Conference contributions and project presentations.
 # Locations are the events' published venues; they do not state the mode of attendance.
 
+# Both ITS ESQC papers were presented on 15-16 October 2026, confirmed by the author on
+# 20 October in 08_cv/05_Publications.md and 09_Service_Peer_Review_and_Community.md.
+# Proceedings are pending, so these talks have no published-paper cross-reference.
+- id: its-esqc-2026-pavlyshyn
+  event: 'Intelligent Transport Systems: Ecology, Safety, Quality, Comfort'
+  short: ITS ESQC 2026
+  city: Kyiv
+  country: Ukraine
+  lat: 50.45
+  lon: 30.52
+  date: '2026-10'
+  kind: paper
+  title: >-
+    Adaptive cascade clustering for pattern-aware traffic-regime identification at locally
+    constrained urban intersections
+
+- id: its-esqc-2026-ryzhanskyi
+  event: 'Intelligent Transport Systems: Ecology, Safety, Quality, Comfort'
+  short: ITS ESQC 2026
+  city: Kyiv
+  country: Ukraine
+  lat: 50.45
+  lon: 30.52
+  date: '2026-10'
+  kind: paper
+  title: >-
+    Robustness of topography-aware traffic signal control to simulated heavy-vehicle
+    misclassification
+
 - id: icst-odesa-2026-radiuk
   event: Information Control Systems and Technologies
   short: ICST-ODESA 2026
